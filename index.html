@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>React Mastery & Task Hub | Day-Wise Learning Log</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 115.3 100'><path d='M57.65 0C25.8 0 0 22.4 0 50s25.8 50 57.65 50 57.65-22.4 57.65-50S89.5 0 57.65 0zm0 88C32.4 88 12 71 12 50S32.4 12 57.65 12 103.3 29 103.3 50 82.9 88 57.65 88z' fill='%2361DAFB'/><circle cx='57.65' cy='50' r='13' fill='%2361DAFB'/></svg>" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --bg-card-hover: rgba(31, 41, 55, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(97, 218, 251, 0.35);
+      --text-primary: #f9fafb;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --react-cyan: #00d8ff;
+      --react-cyan-glow: rgba(0, 216, 255, 0.25);
+      --indigo-accent: #6366f1;
+      --purple-accent: #a855f7;
+      --emerald-accent: #10b981;
+      --amber-accent: #f59e0b;
+      --rose-accent: #f43f5e;
+      --glass-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --card-radius: 16px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f3f4f6;
+      --bg-secondary: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.85);
+      --bg-card-hover: rgba(255, 255, 255, 0.98);
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(0, 180, 216, 0.45);
+      --text-primary: #111827;
+      --text-secondary: #4b5563;
+      --text-muted: #9ca3af;
+      --react-cyan: #008eb3;
+      --react-cyan-glow: rgba(0, 142, 179, 0.2);
+      --indigo-accent: #4f46e5;
+      --purple-accent: #9333ea;
+      --glass-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      background-image: 
+        radial-gradient(at 15% 15%, rgba(0, 216, 255, 0.07) 0px, transparent 50%),
+        radial-gradient(at 85% 25%, rgba(99, 102, 241, 0.07) 0px, transparent 50%),
+        radial-gradient(at 50% 85%, rgba(168, 85, 247, 0.06) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(11, 15, 25, 0.75);
+      border-bottom: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+
+    [data-theme="light"] header {
+      background: rgba(243, 244, 246, 0.85);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .react-atom {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: spin 20s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #00d8ff 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-icon {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-icon:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      color: var(--react-cyan);
+      box-shadow: 0 4px 12px var(--react-cyan-glow);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00d8ff, #0099ff);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 9px 18px;
+      border-radius: 10px;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      box-shadow: 0 4px 14px rgba(0, 216, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 216, 255, 0.45);
+      background: linear-gradient(135deg, #38e1ff, #1aa4ff);
+    }
+
+    .hero {
+      padding: 56px 0 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(0, 216, 255, 0.1);
+      border: 1px solid rgba(0, 216, 255, 0.3);
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--react-cyan);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-pill .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--react-cyan);
+      box-shadow: 0 0 10px var(--react-cyan);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #00d8ff 10%, #818cf8 50%, #c084fc 90%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      max-width: 680px;
+      margin: 0 auto 32px;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+      box-shadow: var(--glass-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--react-cyan), var(--indigo-accent));
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+    }
+
+    .stat-card:hover::before {
+      opacity: 1;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .controls-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 18px 24px;
+      margin-bottom: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      backdrop-filter: blur(12px);
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 10px;
+      flex: 1;
+      min-width: 260px;
+      transition: var(--transition);
+    }
+
+    .search-box:focus-within {
+      border-color: var(--react-cyan);
+      box-shadow: 0 0 0 3px var(--react-cyan-glow);
+    }
+
+    .search-box i {
+      color: var(--text-muted);
+    }
+
+    .search-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-btn {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--border-hover);
+    }
+
+    .filter-btn.active {
+      background: rgba(0, 216, 255, 0.15);
+      border-color: var(--react-cyan);
+      color: var(--react-cyan);
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 28px;
+      margin-bottom: 60px;
+    }
+
+    .day-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--glass-shadow);
+    }
+
+    .day-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .day-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.12);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .status-badge i {
+      font-size: 0.7rem;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .topics-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 22px;
+    }
+
+    .topic-chip {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 4px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .topic-chip i {
+      color: var(--react-cyan);
+    }
+
+    .file-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+
+    .file-box-title {
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .file-item {
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px 0;
+    }
+
+    .file-item span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .file-item .file-type {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 9px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
+    .action-btn:hover {
+      border-color: var(--border-hover);
+      color: var(--react-cyan);
+      transform: translateY(-2px);
+    }
+
+    .action-btn.primary-action {
+      background: rgba(0, 216, 255, 0.12);
+      border-color: rgba(0, 216, 255, 0.35);
+      color: var(--react-cyan);
+    }
+
+    .action-btn.primary-action:hover {
+      background: rgba(0, 216, 255, 0.22);
+      box-shadow: 0 4px 12px var(--react-cyan-glow);
+    }
+
+    .profile-banner {
+      background: linear-gradient(135deg, rgba(17, 24, 39, 0.9), rgba(31, 41, 55, 0.9));
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 32px;
+      margin-bottom: 60px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--glass-shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    [data-theme="light"] .profile-banner {
+      background: linear-gradient(135deg, #ffffff, #f9fafb);
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--react-cyan), var(--purple-accent));
+      padding: 3px;
+      flex-shrink: 0;
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--react-cyan);
+      overflow: hidden;
+    }
+
+    .profile-details h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .profile-details p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-container {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      max-width: 850px;
+      width: 100%;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+      overflow: hidden;
+    }
+
+    .modal-overlay.active .modal-container {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-primary);
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      background: var(--bg-card);
+      color: var(--rose-accent);
+    }
+
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .modal-body h4 {
+      color: var(--react-cyan);
+      margin: 18px 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .modal-body p {
+      margin-bottom: 14px;
+    }
+
+    .modal-body ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    .modal-body li {
+      margin-bottom: 6px;
+    }
+
+    .code-preview {
+      background: #090d16;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      margin: 14px 0;
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #94a3b8;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .copy-btn:hover {
+      background: var(--react-cyan);
+      color: #000;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--react-cyan);
+    }
+
+    @media (max-width: 768px) {
+      .days-grid {
+        grid-template-columns: 1fr;
+      }
+      .controls-panel {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .profile-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .profile-info {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="brand-group">
+        <div class="react-atom">
+          <svg viewBox="0 0 115.3 100" width="34" height="34">
+            <path d="M57.65 0C25.8 0 0 22.4 0 50s25.8 50 57.65 50 57.65-22.4 57.65-50S89.5 0 57.65 0zm0 88C32.4 88 12 71 12 50S32.4 12 57.65 12 103.3 29 103.3 50 82.9 88 57.65 88z" fill="#00d8ff"/>
+            <circle cx="57.65" cy="50" r="12" fill="#00d8ff"/>
+          </svg>
+        </div>
+        <span class="brand-title">React.Portfolio</span>
+      </a>
+
+      <div class="nav-controls">
+        <button class="btn-icon" id="themeToggle" title="Toggle Dark/Light Mode">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="#daysSection" class="btn-primary">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>View Tasks</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="badge-pill">
+        <span class="pulse-dot"></span>
+        React Developer Roadmap • Daily Task Hub
+      </div>
+      <h1 class="hero-title">
+        Mastering React: <span>Day-Wise Task Portfolio</span>
+      </h1>
+      <p class="hero-subtitle">
+        A structured, professional showcase documenting everyday concepts, hands-on components, architecture, and project implementations built with React, Vite & Tailwind CSS.
+      </p>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Days Documented</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Task Completion</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">8+</div>
+          <div class="stat-label">Components Built</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">React 19</div>
+          <div class="stat-label">Core Engine</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Developer Profile Banner -->
+    <section class="profile-banner">
+      <div class="profile-info">
+        <div class="avatar-wrapper">
+          <div class="avatar-inner">
+            <i class="fa-solid fa-user-astronaut"></i>
+          </div>
+        </div>
+        <div class="profile-details">
+          <h3>Thanuja Ramesh</h3>
+          <p><i class="fa-solid fa-code" style="color: var(--react-cyan)"></i> Java Developer & Frontend Enthusiast • React Series</p>
+        </div>
+      </div>
+      <div class="profile-actions">
+        <button class="action-btn primary-action" onclick="openModal('profileModal')">
+          <i class="fa-solid fa-id-card"></i> View Profile Summary
+        </button>
+        <button class="action-btn" onclick="openModal('runModal')">
+          <i class="fa-solid fa-terminal"></i> How to Run Projects
+        </button>
+      </div>
+    </section>
+
+    <!-- Search & Filter Controls -->
+    <section class="controls-panel" id="daysSection">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="taskSearch" placeholder="Search tasks, keywords, components (e.g. JSX, Vite, Profile, DOM)..." />
+      </div>
+
+      <div class="filter-pills">
+        <button class="filter-btn active" data-filter="all">All Days</button>
+        <button class="filter-btn" data-filter="fundamentals">Core & Theory</button>
+        <button class="filter-btn" data-filter="components">Components & Vite</button>
+        <button class="filter-btn" data-filter="styling">UI & Styling</button>
+        <button class="filter-btn" data-filter="navigation">Navigation & Tailwind</button>
+      </div>
+    </section>
+
+    <!-- Days Grid -->
+    <section class="days-grid" id="cardsContainer">
+
+      <!-- DAY 1 CARD -->
+      <article class="day-card" data-category="fundamentals" data-keywords="day 1 react library vs framework component jsx virtual dom real dom reconciliation theory">
+        <div class="card-top">
+          <span class="day-tag">Day 01</span>
+          <span class="status-badge"><i class="fa-solid fa-check"></i> Completed</span>
+        </div>
+
+        <h2 class="card-title">React Fundamentals & Core Architecture</h2>
+        <p class="card-desc">
+          Comprehensive deep dive into React's philosophy, library vs framework comparison, declarative UI paradigm, component breakdown, JSX compilation, Virtual DOM, and the reconciliation process.
+        </p>
+
+        <div class="topics-list">
+          <span class="topic-chip"><i class="fa-solid fa-book"></i> What is React</span>
+          <span class="topic-chip"><i class="fa-solid fa-cube"></i> Component Model</span>
+          <span class="topic-chip"><i class="fa-solid fa-code"></i> JSX Syntax</span>
+          <span class="topic-chip"><i class="fa-solid fa-network-wired"></i> Virtual DOM</span>
+          <span class="topic-chip"><i class="fa-solid fa-rotate"></i> Reconciliation</span>
+        </div>
+
+        <div class="file-box">
+          <div class="file-box-title"><i class="fa-regular fa-folder-open"></i> Task Structure</div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-html5" style="color: #e34f26;"></i> Day1/Task/index.html</span>
+            <span class="file-type">HTML Theory Guide</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="action-btn primary-action" onclick="openModal('day1Modal')">
+            <i class="fa-solid fa-book-open-reader"></i> Read Notes
+          </button>
+          <a href="Day1/Task/index.html" target="_blank" class="action-btn">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open File
+          </a>
+        </div>
+      </article>
+
+      <!-- DAY 2 CARD -->
+      <article class="day-card" data-category="components" data-keywords="day 2 vite modular components button card input app jsx form introvite">
+        <div class="card-top">
+          <span class="day-tag">Day 02</span>
+          <span class="status-badge"><i class="fa-solid fa-check"></i> Completed</span>
+        </div>
+
+        <h2 class="card-title">Introduction to Vite & Modular Components</h2>
+        <p class="card-desc">
+          Scaffolding a modern React application with Vite. Constructing atomic reusable components (Buttons, Inputs, Cards) and assembling them hierarchically in App.jsx.
+        </p>
+
+        <div class="topics-list">
+          <span class="topic-chip"><i class="fa-solid fa-bolt"></i> Vite Build Tool</span>
+          <span class="topic-chip"><i class="fa-solid fa-puzzle-piece"></i> Functional Components</span>
+          <span class="topic-chip"><i class="fa-solid fa-file-import"></i> ES Modules (Import/Export)</span>
+          <span class="topic-chip"><i class="fa-solid fa-table-columns"></i> Component Assembly</span>
+        </div>
+
+        <div class="file-box">
+          <div class="file-box-title"><i class="fa-regular fa-folder-open"></i> Key Components (Day2/Task/introvite)</div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> Button.jsx</span>
+            <span class="file-type">Interactive CTA</span>
+          </div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> Input.jsx</span>
+            <span class="file-type">Form Input Fields</span>
+          </div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> Card.jsx</span>
+            <span class="file-type">Location Card</span>
+          </div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> App.jsx</span>
+            <span class="file-type">Master Composition</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="action-btn primary-action" onclick="openModal('day2Modal')">
+            <i class="fa-solid fa-code"></i> Inspect Code
+          </button>
+          <button class="action-btn" onclick="openModal('runDay2Modal')">
+            <i class="fa-solid fa-play"></i> Run Task
+          </button>
+        </div>
+      </article>
+
+      <!-- DAY 3 CARD -->
+      <article class="day-card" data-category="styling" data-keywords="day 3 profile card header styling inline styles image asset thanuja ramesh java developer layout">
+        <div class="card-top">
+          <span class="day-tag">Day 03</span>
+          <span class="status-badge"><i class="fa-solid fa-check"></i> Completed</span>
+        </div>
+
+        <h2 class="card-title">Profile Card & Component Styling</h2>
+        <p class="card-desc">
+          Designing a personalized developer profile card UI using React inline styling, CSS elevation (box-shadows), local image bundling, and structured layout composition with Header & Profile components.
+        </p>
+
+        <div class="topics-list">
+          <span class="topic-chip"><i class="fa-solid fa-palette"></i> Inline Styling</span>
+          <span class="topic-chip"><i class="fa-solid fa-image"></i> Asset Bundling</span>
+          <span class="topic-chip"><i class="fa-solid fa-address-card"></i> Profile UI Card</span>
+          <span class="topic-chip"><i class="fa-solid fa-box-archive"></i> Container Layouts</span>
+        </div>
+
+        <div class="file-box">
+          <div class="file-box-title"><i class="fa-regular fa-folder-open"></i> Key Components (Day3/Task/profile)</div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> Header.jsx</span>
+            <span class="file-type">Top Navigation Banner</span>
+          </div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> Profile.jsx</span>
+            <span class="file-type">Avatar & Role Card</span>
+          </div>
+          <div class="file-item">
+            <span><i class="fa-regular fa-image" style="color: #a855f7;"></i> image.jpg</span>
+            <span class="file-type">Profile Media Asset</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="action-btn primary-action" onclick="openModal('day3Modal')">
+            <i class="fa-solid fa-code"></i> Inspect Code
+          </button>
+          <button class="action-btn" onclick="openModal('previewProfileModal')">
+            <i class="fa-solid fa-eye"></i> Live Simulation
+          </button>
+        </div>
+      </article>
+
+      <!-- DAY 4 CARD -->
+      <article class="day-card" data-category="navigation" data-keywords="day 4 reactnavigation react router dom tailwind css useState state counter hero navbar hooks">
+        <div class="card-top">
+          <span class="day-tag">Day 04</span>
+          <span class="status-badge"><i class="fa-solid fa-check"></i> Completed</span>
+        </div>
+
+        <h2 class="card-title">React Navigation & Modern Layouts</h2>
+        <p class="card-desc">
+          Building responsive web layouts with Tailwind CSS v4, dynamic React state handling with useState hooks, documentation hubs, and integrating React Router DOM for multi-page navigation architectures.
+        </p>
+
+        <div class="topics-list">
+          <span class="topic-chip"><i class="fa-solid fa-compass"></i> React Navigation</span>
+          <span class="topic-chip"><i class="fa-brands fa-css3-alt"></i> Tailwind CSS v4</span>
+          <span class="topic-chip"><i class="fa-solid fa-toggle-on"></i> useState Hook</span>
+          <span class="topic-chip"><i class="fa-solid fa-route"></i> React Router DOM</span>
+        </div>
+
+        <div class="file-box">
+          <div class="file-box-title"><i class="fa-regular fa-folder-open"></i> Key Components (Day4/reactnavigation)</div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> Navbar.jsx</span>
+            <span class="file-type">Responsive Nav Bar</span>
+          </div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> App.jsx</span>
+            <span class="file-type">Interactive Counter & Hero</span>
+          </div>
+          <div class="file-item">
+            <span><i class="fa-solid fa-cube" style="color: #38bdf8;"></i> @tailwindcss/vite</span>
+            <span class="file-type">Styling Engine</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="action-btn primary-action" onclick="openModal('day4Modal')">
+            <i class="fa-solid fa-code"></i> Inspect Code
+          </button>
+          <button class="action-btn" onclick="openModal('runDay4Modal')">
+            <i class="fa-solid fa-terminal"></i> Run Project
+          </button>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- Modals -->
+
+  <!-- DAY 1 MODAL (FULL NOTES VIEWER) -->
+  <div class="modal-overlay" id="day1Modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-book" style="color: var(--react-cyan);"></i>
+          Day 1: React Fundamentals & Core Notes
+        </div>
+        <button class="modal-close" onclick="closeModal('day1Modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <h4>1. What is React?</h4>
+        <p>
+          React is an open-source JavaScript library used to build interactive and reusable user interfaces, especially for single-page web applications. React was created at Facebook and open-sourced in 2013. Maintained by Meta and a vast open-source community, React focuses directly on the View layer of an application.
+        </p>
+
+        <h4>2. Is React a Library or a Framework?</h4>
+        <p>
+          React is a <strong>library</strong>, not a framework. It is unopinionated and focused exclusively on the view layer. Unlike frameworks (like Angular), React does not enforce routing, state management, or HTTP clients out of the box, allowing developers the freedom to assemble their preferred ecosystem.
+        </p>
+
+        <h4>3. What is a Component?</h4>
+        <p>
+          A component is an independent, reusable piece of UI. In modern React, components are JavaScript functions that accept inputs (props) and return JSX elements describing what should appear on screen.
+        </p>
+
+        <h4>4. Why are Components Important?</h4>
+        <ul>
+          <li><strong>Reusability:</strong> Write once, render anywhere across your application.</li>
+          <li><strong>Maintainability & Readability:</strong> Code is separated into clean, modular units rather than one giant monolithic file.</li>
+          <li><strong>Separation of Concerns:</strong> Each component manages its own structure, style, and behavior.</li>
+          <li><strong>Testability:</strong> Isolated components can be unit-tested efficiently.</li>
+        </ul>
+
+        <h4>5. What is JSX (JavaScript XML)?</h4>
+        <p>
+          JSX is a syntax extension for JavaScript that looks similar to HTML. It enables developers to write UI markup directly within JavaScript files. Build tools like Vite convert JSX into valid browser-executable JavaScript.
+        </p>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+const App = () => {
+  return (
+    &lt;div className="card"&gt;
+      &lt;h1&gt;Hello React!&lt;/h1&gt;
+    &lt;/div&gt;
+  );
+};
+        </div>
+
+        <h4>6. Real DOM vs. Virtual DOM & Reconciliation</h4>
+        <p>
+          <strong>Real DOM:</strong> The tree representation of HTML elements in the browser. Direct manipulations can be slow and computationally expensive.
+        </p>
+        <p>
+          <strong>Virtual DOM:</strong> A lightweight in-memory representation of the Real DOM kept in memory.
+        </p>
+        <p>
+          <strong>Reconciliation:</strong> The process where React compares the new Virtual DOM tree against the previous one (diffing algorithm), determines minimal updates, and efficiently applies changes to the browser DOM.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 MODAL (CODE VIEWER) -->
+  <div class="modal-overlay" id="day2Modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-code" style="color: var(--react-cyan);"></i>
+          Day 2: Component Architecture & Source Code
+        </div>
+        <button class="modal-close" onclick="closeModal('day2Modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <h4>📁 App.jsx (Orchestrator)</h4>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+import Button from "./Button"
+import Input from "./Input"
+import Card from "./Card"
+
+const App = () => {
+  return (
+    &lt;&gt;
+      &lt;div&gt;
+        &lt;h1&gt;DAY-2 Task&lt;/h1&gt;
+        &lt;Button /&gt;
+        &lt;Input /&gt;
+        &lt;Card /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+
+export default App;
+        </div>
+
+        <h4>📁 Button.jsx</h4>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+const Button = () => {
+  return (
+    &lt;&gt;
+      &lt;div&gt;
+        &lt;button&gt;Click&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+export default Button;
+        </div>
+
+        <h4>📁 Input.jsx</h4>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+const Input = () => {
+  return (
+    &lt;&gt;
+      &lt;div&gt;
+        &lt;h2&gt;Student Form&lt;/h2&gt;
+        &lt;input type="text" placeholder="ENTER THE NAME" /&gt;
+        &lt;br /&gt;&lt;br /&gt;
+        &lt;input type="text" placeholder="ENTER YOUR EMAIL" /&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+export default Input;
+        </div>
+
+        <h4>📁 Card.jsx</h4>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+const Card = () => {
+  return (
+    &lt;&gt;
+      &lt;div&gt;
+        &lt;h1&gt;GUDIYATHAM&lt;/h1&gt;
+        &lt;button&gt;Submit&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+export default Card;
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 MODAL (CODE VIEWER) -->
+  <div class="modal-overlay" id="day3Modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-code" style="color: var(--react-cyan);"></i>
+          Day 3: Profile Card & Custom Styling Source Code
+        </div>
+        <button class="modal-close" onclick="closeModal('day3Modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <h4>📁 Profile.jsx (Profile Card Component)</h4>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+import Image from "./assets/image/image.jpg";
+
+const ProfileCard = () => {
+  return (
+    &lt;&gt;
+      &lt;div style={{
+        width: "400px",
+        padding: "30px",
+        height: "450px",
+        borderRadius: "10px",
+        boxShadow: "1px 2px 1px 2px",
+        margin: "15px auto"
+      }}&gt;
+        &lt;h2 style={{ padding: "10px", textAlign: "center" }}&gt;My Profile&lt;/h2&gt;
+        &lt;div style={{ textAlign: "center" }}&gt;
+          &lt;img src={Image} alt="Profile Avatar" width="150px" /&gt;
+          &lt;p&gt;&lt;strong&gt;Name :&lt;/strong&gt; Thanuja Ramesh&lt;/p&gt;
+          &lt;p&gt;&lt;strong&gt;Role :&lt;/strong&gt; Java Developer&lt;/p&gt;
+          &lt;button style={{
+            backgroundColor: "grey",
+            padding: "10px",
+            borderRadius: "10px"
+          }}&gt;Submit&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+
+export default ProfileCard;
+        </div>
+
+        <h4>📁 Header.jsx</h4>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+const Header = () => {
+  return (
+    &lt;&gt;
+      &lt;div style={{
+        backgroundColor: "beige",
+        color: "black",
+        padding: "10px",
+        textAlign: "center",
+        borderRadius: "10px"
+      }}&gt;
+        &lt;h1&gt;Profile Card&lt;/h1&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+
+export default Header;
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 LIVE SIMULATION MODAL -->
+  <div class="modal-overlay" id="previewProfileModal">
+    <div class="modal-container" style="max-width: 500px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-address-card" style="color: var(--react-cyan);"></i>
+          Day 3: Profile Card Render Preview
+        </div>
+        <button class="modal-close" onclick="closeModal('previewProfileModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" style="background: #e5e7eb; color: #111827; border-radius: 0 0 20px 20px;">
+        <!-- Header simulation -->
+        <div style="background-color: beige; color: black; padding: 10px; text-align: center; border-radius: 10px; margin-bottom: 15px;">
+          <h2 style="font-size: 1.5rem; margin: 0;">Profile Card</h2>
+        </div>
+
+        <!-- Profile Card simulation -->
+        <div style="background: #ffffff; width: 100%; max-width: 380px; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08); margin: 0 auto; text-align: center;">
+          <h3 style="padding: 5px; margin-bottom: 12px; font-weight: 700;">My Profile</h3>
+          
+          <div style="width: 130px; height: 130px; border-radius: 50%; background: #e0e7ff; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #4f46e5; border: 3px solid #6366f1;">
+            <i class="fa-solid fa-user-tie"></i>
+          </div>
+
+          <p style="margin-bottom: 8px; font-size: 1.05rem;"><strong>Name :</strong> Thanuja Ramesh</p>
+          <p style="margin-bottom: 16px; font-size: 1.05rem;"><strong>Role :</strong> Java Developer</p>
+          
+          <button style="background-color: #6b7280; color: white; border: none; padding: 10px 24px; border-radius: 10px; cursor: pointer; font-weight: 600;">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 4 MODAL (CODE VIEWER) -->
+  <div class="modal-overlay" id="day4Modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-compass" style="color: var(--react-cyan);"></i>
+          Day 4: React Navigation & Tailwind Layout
+        </div>
+        <button class="modal-close" onclick="closeModal('day4Modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <h4>📁 App.jsx (State Management & Layout)</h4>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+import { useState } from 'react'
+import heroImg from './assets/hero.png'
+import reactLogo from './assets/react.svg'
+import viteLogo from './assets/vite.svg'
+import './App.css'
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    &lt;&gt;
+      &lt;section id="center"&gt;
+        &lt;div className="hero"&gt;
+          &lt;img src={heroImg} className="base" width="170" height="179" alt="" /&gt;
+          &lt;img src={reactLogo} className="framework" alt="React logo" /&gt;
+          &lt;img src={viteLogo} className="vite" alt="Vite logo" /&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;h1&gt;Get started&lt;/h1&gt;
+          &lt;p&gt;Edit &lt;code&gt;src/App.jsx&lt;/code&gt; and save to test &lt;code&gt;HMR&lt;/code&gt;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;button type="button" className="counter" onClick={() =&gt; setCount((count) =&gt; count + 1)}&gt;
+          Count is {count}
+        &lt;/button&gt;
+      &lt;/section&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App
+        </div>
+
+        <h4>📁 Package Configuration & Dependencies</h4>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+{
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.4",
+    "tailwindcss": "^4.3.3"
+  }
+}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW TO RUN MODAL -->
+  <div class="modal-overlay" id="runModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-terminal" style="color: var(--react-cyan);"></i>
+          How to Run Vite & React Tasks
+        </div>
+        <button class="modal-close" onclick="closeModal('runModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <h4>🚀 Running Day 2 Task (introvite)</h4>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+cd Day2/Task/introvite
+npm install
+npm run dev
+        </div>
+
+        <h4>🚀 Running Day 3 Task (profile)</h4>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+cd Day3/Task/profile
+npm install
+npm run dev
+        </div>
+
+        <h4>🚀 Running Day 4 Task (reactnavigation)</h4>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+cd Day4/reactnavigation
+npm install
+npm run dev
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RUN DAY 2 MODAL -->
+  <div class="modal-overlay" id="runDay2Modal">
+    <div class="modal-container" style="max-width: 550px;">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-terminal" style="color: var(--react-cyan);"></i> Run Day 2 Task</div>
+        <button class="modal-close" onclick="closeModal('runDay2Modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p>Run the following commands in your terminal to launch the Day 2 Vite server:</p>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+cd "d:\React\Day2\Task\introvite"
+npm run dev
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RUN DAY 4 MODAL -->
+  <div class="modal-overlay" id="runDay4Modal">
+    <div class="modal-container" style="max-width: 550px;">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-terminal" style="color: var(--react-cyan);"></i> Run Day 4 Task</div>
+        <button class="modal-close" onclick="closeModal('runDay4Modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p>Run the following commands in your terminal to launch Day 4 React Navigation project:</p>
+        <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+cd "d:\React\Day4\reactnavigation"
+npm run dev
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE MODAL -->
+  <div class="modal-overlay" id="profileModal">
+    <div class="modal-container" style="max-width: 520px;">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-user-gear" style="color: var(--react-cyan);"></i> Developer Profile</div>
+        <button class="modal-close" onclick="closeModal('profileModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <div style="width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, var(--react-cyan), var(--indigo-accent)); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #fff;">
+          <i class="fa-solid fa-user-astronaut"></i>
+        </div>
+        <h3 style="color: var(--text-primary); margin-bottom: 4px;">Thanuja Ramesh</h3>
+        <p style="color: var(--react-cyan); font-weight: 600; margin-bottom: 16px;">Java Developer & Modern Web Specialist</p>
+        
+        <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem;">
+          Actively building and documenting React 19 applications, modular UI components, Tailwind CSS styling, and single-page navigation architecture.
+        </p>
+
+        <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+          <span class="topic-chip"><i class="fa-brands fa-java" style="color: #f89820;"></i> Java</span>
+          <span class="topic-chip"><i class="fa-brands fa-react" style="color: var(--react-cyan);"></i> React 19</span>
+          <span class="topic-chip"><i class="fa-brands fa-js" style="color: #f7df1e;"></i> JavaScript</span>
+          <span class="topic-chip"><i class="fa-brands fa-css3-alt" style="color: #38bdf8;"></i> Tailwind CSS</span>
+          <span class="topic-chip"><i class="fa-solid fa-bolt" style="color: #fbbf24;"></i> Vite</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="react-atom" style="width: 32px; height: 32px;">
+        <svg viewBox="0 0 115.3 100" width="28" height="28">
+          <path d="M57.65 0C25.8 0 0 22.4 0 50s25.8 50 57.65 50 57.65-22.4 57.65-50S89.5 0 57.65 0zm0 88C32.4 88 12 71 12 50S32.4 12 57.65 12 103.3 29 103.3 50 82.9 88 57.65 88z" fill="#00d8ff"/>
+          <circle cx="57.65" cy="50" r="12" fill="#00d8ff"/>
+        </svg>
+      </div>
+      <p>© 2026 React Learning Journey • Built with passion by <strong>Thanuja Ramesh</strong></p>
+      <ul class="footer-links">
+        <li><a href="#daysSection">Tasks</a></li>
+        <li><a href="#" onclick="openModal('runModal')">Terminal Commands</a></li>
+        <li><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to Top</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Theme Toggle
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+
+    // Check saved theme preference
+    const savedTheme = localStorage.getItem('react_portfolio_theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = htmlEl.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', newTheme);
+      localStorage.setItem('react_portfolio_theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+      themeToggleBtn.innerHTML = theme === 'dark' 
+        ? '<i class="fa-solid fa-sun" style="color: #fbbf24;"></i>' 
+        : '<i class="fa-solid fa-moon" style="color: #6366f1;"></i>';
+    }
+
+    // Modal Handlers
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Close modal on click outside
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    // Close on Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+          modal.classList.remove('active');
+        });
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Copy Code Helper
+    function copyCode(btn) {
+      const codeBlock = btn.parentElement;
+      const text = codeBlock.innerText.replace('Copy', '').trim();
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = 'Copied!';
+        btn.style.background = '#10b981';
+        btn.style.color = '#fff';
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    }
+
+    // Search and Filter Functionality
+    const searchInput = document.getElementById('taskSearch');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.day-card');
+
+    let currentFilter = 'all';
+
+    function filterCards() {
+      const query = searchInput.value.toLowerCase().trim();
+
+      cards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const keywords = card.getAttribute('data-keywords').toLowerCase();
+        const title = card.querySelector('.card-title').innerText.toLowerCase();
+        const desc = card.querySelector('.card-desc').innerText.toLowerCase();
+
+        const matchesFilter = (currentFilter === 'all') || (category === currentFilter);
+        const matchesSearch = !query || 
+                              keywords.includes(query) || 
+                              title.includes(query) || 
+                              desc.includes(query);
+
+        if (matchesFilter && matchesSearch) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    searchInput.addEventListener('input', filterCards);
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-filter');
+        filterCards();
+      });
+    });
+  </script>
+</body>
+</html>
