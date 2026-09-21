@@ -3,59 +3,89 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>React Mastery & Task Hub | Day-Wise Learning Log</title>
-  
+  <title>React Mastery Hub | Day-Wise Learning & Project Showcase</title>
+  <meta name="description" content="Professional React 19 learning portfolio and task hub covering core fundamentals, Vite modular components, inline styling, Tailwind CSS v4, and React Router navigation." />
+
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 115.3 100'><path d='M57.65 0C25.8 0 0 22.4 0 50s25.8 50 57.65 50 57.65-22.4 57.65-50S89.5 0 57.65 0zm0 88C32.4 88 12 71 12 50S32.4 12 57.65 12 103.3 29 103.3 50 82.9 88 57.65 88z' fill='%2361DAFB'/><circle cx='57.65' cy='50' r='13' fill='%2361DAFB'/></svg>" />
-  
-  <!-- Fonts -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 115.3 100'><path d='M57.65 0C25.8 0 0 22.4 0 50s25.8 50 57.65 50 57.65-22.4 57.65-50S89.5 0 57.65 0zm0 88C32.4 88 12 71 12 50S32.4 12 57.65 12 103.3 29 103.3 50 82.9 88 57.65 88z' fill='%2300d8ff'/><circle cx='57.65' cy='50' r='13' fill='%2300d8ff'/></svg>" />
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  
-  <!-- Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
+    /* ==========================================================================
+       CSS VARIABLES & THEME DEFINITIONS
+       ========================================================================== */
     :root {
-      --bg-primary: #0b0f19;
-      --bg-secondary: #111827;
-      --bg-card: rgba(17, 24, 39, 0.75);
-      --bg-card-hover: rgba(31, 41, 55, 0.85);
+      --bg-primary: #090d16;
+      --bg-secondary: #0f172a;
+      --bg-card: rgba(15, 23, 42, 0.75);
+      --bg-card-hover: rgba(30, 41, 59, 0.85);
+      --bg-input: #1e293b;
+      --bg-code: #060a12;
+      
       --border-color: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(97, 218, 251, 0.35);
-      --text-primary: #f9fafb;
-      --text-secondary: #9ca3af;
-      --text-muted: #6b7280;
+      --border-subtle: rgba(255, 255, 255, 0.05);
+      --border-hover: rgba(0, 216, 255, 0.4);
+      --border-active: #00d8ff;
+
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --text-highlight: #ffffff;
+
       --react-cyan: #00d8ff;
-      --react-cyan-glow: rgba(0, 216, 255, 0.25);
+      --react-cyan-glow: rgba(0, 216, 255, 0.28);
       --indigo-accent: #6366f1;
+      --indigo-glow: rgba(99, 102, 241, 0.25);
       --purple-accent: #a855f7;
       --emerald-accent: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.2);
       --amber-accent: #f59e0b;
       --rose-accent: #f43f5e;
-      --glass-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --sky-accent: #38bdf8;
+
+      --glass-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.55);
+      --modal-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85);
       --card-radius: 16px;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --btn-radius: 10px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     [data-theme="light"] {
-      --bg-primary: #f3f4f6;
+      --bg-primary: #f8fafc;
       --bg-secondary: #ffffff;
-      --bg-card: rgba(255, 255, 255, 0.85);
+      --bg-card: rgba(255, 255, 255, 0.88);
       --bg-card-hover: rgba(255, 255, 255, 0.98);
+      --bg-input: #f1f5f9;
+      --bg-code: #0f172a;
+
       --border-color: rgba(0, 0, 0, 0.08);
-      --border-hover: rgba(0, 180, 216, 0.45);
-      --text-primary: #111827;
-      --text-secondary: #4b5563;
-      --text-muted: #9ca3af;
+      --border-subtle: rgba(0, 0, 0, 0.04);
+      --border-hover: rgba(0, 142, 179, 0.45);
+      --border-active: #008eb3;
+
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --text-highlight: #000000;
+
       --react-cyan: #008eb3;
       --react-cyan-glow: rgba(0, 142, 179, 0.2);
       --indigo-accent: #4f46e5;
       --purple-accent: #9333ea;
-      --glass-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+      --glass-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.07);
+      --modal-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
     }
 
+    /* ==========================================================================
+       GLOBAL RESETS & BASE STYLES
+       ========================================================================== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -75,38 +105,57 @@
       overflow-x: hidden;
       transition: background-color 0.3s ease, color 0.3s ease;
       background-image: 
-        radial-gradient(at 15% 15%, rgba(0, 216, 255, 0.07) 0px, transparent 50%),
-        radial-gradient(at 85% 25%, rgba(99, 102, 241, 0.07) 0px, transparent 50%),
-        radial-gradient(at 50% 85%, rgba(168, 85, 247, 0.06) 0px, transparent 50%);
+        radial-gradient(at 10% 10%, rgba(0, 216, 255, 0.08) 0px, transparent 45%),
+        radial-gradient(at 90% 20%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+        radial-gradient(at 50% 90%, rgba(168, 85, 247, 0.07) 0px, transparent 50%);
       background-attachment: fixed;
     }
 
     .container {
-      max-width: 1240px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg-input);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--react-cyan);
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== */
     header {
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      background: rgba(11, 15, 25, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(9, 13, 22, 0.8);
       border-bottom: 1px solid var(--border-color);
       transition: var(--transition);
     }
 
     [data-theme="light"] header {
-      background: rgba(243, 244, 246, 0.85);
+      background: rgba(248, 250, 252, 0.85);
     }
 
     .nav-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 72px;
+      height: 74px;
     }
 
     .brand-group {
@@ -119,25 +168,64 @@
 
     .react-atom {
       position: relative;
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .react-atom svg {
       animation: spin 20s linear infinite;
+      filter: drop-shadow(0 0 8px var(--react-cyan-glow));
     }
 
     @keyframes spin {
       100% { transform: rotate(360deg); }
     }
 
+    .brand-title-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
     .brand-title {
       font-weight: 800;
-      font-size: 1.25rem;
+      font-size: 1.28rem;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #00d8ff 0%, #a855f7 100%);
+      background: linear-gradient(135deg, #00d8ff 0%, #818cf8 50%, #c084fc 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+
+    .brand-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: var(--transition);
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .nav-links a:hover {
+      color: var(--react-cyan);
+      background: rgba(0, 216, 255, 0.08);
     }
 
     .nav-controls {
@@ -152,12 +240,13 @@
       color: var(--text-primary);
       width: 42px;
       height: 42px;
-      border-radius: 10px;
+      border-radius: var(--btn-radius);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: var(--transition);
+      font-size: 1rem;
     }
 
     .btn-icon:hover {
@@ -169,11 +258,11 @@
 
     .btn-primary {
       background: linear-gradient(135deg, #00d8ff, #0099ff);
-      color: #000;
+      color: #04101e;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       padding: 9px 18px;
-      border-radius: 10px;
+      border-radius: var(--btn-radius);
       border: none;
       display: inline-flex;
       align-items: center;
@@ -181,15 +270,18 @@
       cursor: pointer;
       text-decoration: none;
       transition: var(--transition);
-      box-shadow: 0 4px 14px rgba(0, 216, 255, 0.3);
+      box-shadow: 0 4px 14px rgba(0, 216, 255, 0.35);
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 216, 255, 0.45);
+      box-shadow: 0 6px 22px rgba(0, 216, 255, 0.5);
       background: linear-gradient(135deg, #38e1ff, #1aa4ff);
     }
 
+    /* ==========================================================================
+       HERO SECTION
+       ========================================================================== */
     .hero {
       padding: 56px 0 40px;
       text-align: center;
@@ -200,14 +292,14 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 16px;
+      padding: 6px 18px;
       background: rgba(0, 216, 255, 0.1);
       border: 1px solid rgba(0, 216, 255, 0.3);
       border-radius: 9999px;
       font-size: 0.82rem;
       font-weight: 600;
       color: var(--react-cyan);
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -227,32 +319,67 @@
     }
 
     .hero-title {
-      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-size: clamp(2.3rem, 4.8vw, 3.6rem);
       font-weight: 800;
       line-height: 1.15;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
+      letter-spacing: -0.035em;
+      margin-bottom: 18px;
       color: var(--text-primary);
     }
 
     .hero-title span {
-      background: linear-gradient(135deg, #00d8ff 10%, #818cf8 50%, #c084fc 90%);
+      background: linear-gradient(135deg, #00d8ff 0%, #818cf8 50%, #c084fc 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero-subtitle {
-      max-width: 680px;
-      margin: 0 auto 32px;
-      font-size: 1.1rem;
+      max-width: 760px;
+      margin: 0 auto 36px;
+      font-size: 1.12rem;
       color: var(--text-secondary);
       font-weight: 400;
+      line-height: 1.7;
     }
 
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 9px 20px;
+      border-radius: var(--btn-radius);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--border-hover);
+      color: var(--react-cyan);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       STATS GRID
+       ========================================================================== */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
       margin-bottom: 48px;
     }
 
@@ -260,9 +387,9 @@
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--card-radius);
-      padding: 20px;
+      padding: 22px;
       text-align: center;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       transition: var(--transition);
       box-shadow: var(--glass-shadow);
       position: relative;
@@ -291,21 +418,134 @@
     }
 
     .stat-number {
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 800;
       color: var(--text-primary);
       margin-bottom: 4px;
       font-family: 'JetBrains Mono', monospace;
     }
 
+    .stat-number.accent {
+      color: var(--react-cyan);
+    }
+
     .stat-label {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
     }
 
+    /* ==========================================================================
+       DEVELOPER PROFILE BANNER
+       ========================================================================== */
+    .profile-banner {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.85));
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 30px 36px;
+      margin-bottom: 50px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--glass-shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-banner::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(0, 216, 255, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    [data-theme="light"] .profile-banner {
+      background: linear-gradient(135deg, #ffffff, #f1f5f9);
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--react-cyan), var(--purple-accent));
+      padding: 3px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 18px var(--react-cyan-glow);
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      color: var(--react-cyan);
+    }
+
+    .profile-details h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .profile-details p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .profile-tech-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tech-pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      z-index: 2;
+    }
+
+    /* ==========================================================================
+       CONTROLS & SEARCH PANEL
+       ========================================================================== */
     .controls-panel {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -323,14 +563,15 @@
     .search-box {
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: var(--bg-secondary);
+      gap: 12px;
+      background: var(--bg-input);
       border: 1px solid var(--border-color);
-      padding: 8px 16px;
+      padding: 9px 18px;
       border-radius: 10px;
       flex: 1;
-      min-width: 260px;
+      min-width: 280px;
       transition: var(--transition);
+      position: relative;
     }
 
     .search-box:focus-within {
@@ -347,9 +588,19 @@
       border: none;
       outline: none;
       color: var(--text-primary);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       width: 100%;
       font-family: inherit;
+    }
+
+    .search-kbd {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
     }
 
     .filter-pills {
@@ -359,15 +610,18 @@
     }
 
     .filter-btn {
-      background: var(--bg-secondary);
+      background: var(--bg-input);
       border: 1px solid var(--border-color);
       color: var(--text-secondary);
       font-size: 0.85rem;
       font-weight: 600;
-      padding: 6px 14px;
+      padding: 7px 16px;
       border-radius: 8px;
       cursor: pointer;
       transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .filter-btn:hover {
@@ -379,8 +633,12 @@
       background: rgba(0, 216, 255, 0.15);
       border-color: var(--react-cyan);
       color: var(--react-cyan);
+      box-shadow: 0 2px 8px var(--react-cyan-glow);
     }
 
+    /* ==========================================================================
+       DAYS SHOWCASE CARDS GRID
+       ========================================================================== */
     .days-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
@@ -405,7 +663,34 @@
     .day-card:hover {
       border-color: var(--border-hover);
       transform: translateY(-6px);
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 22px 45px -15px rgba(0, 0, 0, 0.65);
+    }
+
+    .day-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--react-cyan), var(--indigo-accent));
+      opacity: 0.8;
+    }
+
+    .day-card[data-category="fundamentals"]::before {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+    }
+    .day-card[data-category="components"]::before {
+      background: linear-gradient(90deg, #00d8ff, #10b981);
+    }
+    .day-card[data-category="styling"]::before {
+      background: linear-gradient(90deg, #a855f7, #ec4899);
+    }
+    .day-card[data-category="navigation"]::before {
+      background: linear-gradient(90deg, #6366f1, #3b82f6);
+    }
+    .day-card[data-category="routing-state"]::before {
+      background: linear-gradient(90deg, #f59e0b, #10b981);
     }
 
     .card-top {
@@ -417,10 +702,10 @@
 
     .day-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 6px;
+      padding: 5px 12px;
+      border-radius: 8px;
       background: rgba(99, 102, 241, 0.15);
       color: #818cf8;
       border: 1px solid rgba(99, 102, 241, 0.3);
@@ -434,7 +719,7 @@
       gap: 6px;
       font-size: 0.75rem;
       font-weight: 600;
-      padding: 3px 9px;
+      padding: 4px 10px;
       border-radius: 9999px;
       background: rgba(16, 185, 129, 0.12);
       color: #34d399;
@@ -447,9 +732,9 @@
 
     .card-title {
       font-size: 1.35rem;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--text-primary);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       line-height: 1.3;
     }
 
@@ -458,6 +743,7 @@
       color: var(--text-secondary);
       margin-bottom: 20px;
       flex-grow: 1;
+      line-height: 1.6;
     }
 
     .topics-list {
@@ -468,16 +754,16 @@
     }
 
     .topic-chip {
-      background: var(--bg-secondary);
+      background: var(--bg-input);
       border: 1px solid var(--border-color);
       color: var(--text-secondary);
       font-size: 0.75rem;
       font-weight: 500;
-      padding: 4px 8px;
+      padding: 4px 10px;
       border-radius: 6px;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
     }
 
     .topic-chip i {
@@ -485,13 +771,13 @@
     }
 
     .file-box {
-      background: var(--bg-secondary);
+      background: var(--bg-input);
       border: 1px solid var(--border-color);
       border-radius: 10px;
       padding: 12px 14px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
     }
 
     .file-box-title {
@@ -537,7 +823,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 9px 12px;
+      padding: 10px 14px;
       border-radius: 9px;
       font-size: 0.85rem;
       font-weight: 600;
@@ -545,7 +831,7 @@
       cursor: pointer;
       transition: var(--transition);
       border: 1px solid var(--border-color);
-      background: var(--bg-secondary);
+      background: var(--bg-input);
       color: var(--text-primary);
     }
 
@@ -563,83 +849,17 @@
 
     .action-btn.primary-action:hover {
       background: rgba(0, 216, 255, 0.22);
-      box-shadow: 0 4px 12px var(--react-cyan-glow);
+      box-shadow: 0 4px 14px var(--react-cyan-glow);
     }
 
-    .profile-banner {
-      background: linear-gradient(135deg, rgba(17, 24, 39, 0.9), rgba(31, 41, 55, 0.9));
-      border: 1px solid var(--border-color);
-      border-radius: var(--card-radius);
-      padding: 32px;
-      margin-bottom: 60px;
-      backdrop-filter: blur(14px);
-      box-shadow: var(--glass-shadow);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    [data-theme="light"] .profile-banner {
-      background: linear-gradient(135deg, #ffffff, #f9fafb);
-    }
-
-    .profile-info {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .avatar-wrapper {
-      position: relative;
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--react-cyan), var(--purple-accent));
-      padding: 3px;
-      flex-shrink: 0;
-    }
-
-    .avatar-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: var(--bg-secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      color: var(--react-cyan);
-      overflow: hidden;
-    }
-
-    .profile-details h3 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-
-    .profile-details p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .profile-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
+    /* ==========================================================================
+       MODALS SYSTEM
+       ========================================================================== */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
+      background: rgba(3, 7, 18, 0.82);
+      backdrop-filter: blur(10px);
       z-index: 100;
       display: none;
       align-items: center;
@@ -658,12 +878,12 @@
       background: var(--bg-secondary);
       border: 1px solid var(--border-color);
       border-radius: 20px;
-      max-width: 850px;
+      max-width: 900px;
       width: 100%;
-      max-height: 88vh;
+      max-height: 90vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      box-shadow: var(--modal-shadow);
       transform: scale(0.95);
       transition: transform 0.3s ease;
       overflow: hidden;
@@ -719,36 +939,64 @@
       line-height: 1.7;
     }
 
-    .modal-body h4 {
-      color: var(--react-cyan);
-      margin: 18px 0 8px;
-      font-size: 1.1rem;
-    }
-
-    .modal-body p {
-      margin-bottom: 14px;
-    }
-
-    .modal-body ul {
-      margin-left: 20px;
+    /* Modal Code Tabs */
+    .tab-nav {
+      display: flex;
+      gap: 8px;
       margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+      overflow-x: auto;
     }
 
-    .modal-body li {
-      margin-bottom: 6px;
-    }
-
-    .code-preview {
-      background: #090d16;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      padding: 16px;
+    .tab-btn {
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--border-hover);
+    }
+
+    .tab-btn.active {
+      background: rgba(0, 216, 255, 0.15);
+      border-color: var(--react-cyan);
+      color: var(--react-cyan);
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* Code Viewer Block */
+    .code-preview {
+      background: var(--bg-code);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.84rem;
       color: #e2e8f0;
       overflow-x: auto;
       margin: 14px 0;
       position: relative;
+      line-height: 1.55;
     }
 
     .copy-btn {
@@ -756,58 +1004,182 @@
       top: 10px;
       right: 10px;
       background: rgba(255, 255, 255, 0.1);
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: #94a3b8;
-      padding: 4px 8px;
+      padding: 5px 10px;
       border-radius: 6px;
       font-size: 0.75rem;
       cursor: pointer;
       transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: inherit;
     }
 
     .copy-btn:hover {
       background: var(--react-cyan);
-      color: #000;
+      color: #04101e;
+      border-color: var(--react-cyan);
     }
 
+    /* Theory Callouts in Modal */
+    .theory-section {
+      margin-bottom: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+
+    .theory-section h4 {
+      color: var(--react-cyan);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theory-section p {
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .theory-section ul {
+      margin-left: 20px;
+      color: var(--text-secondary);
+    }
+
+    .theory-section li {
+      margin-bottom: 6px;
+    }
+
+    /* ==========================================================================
+       INTERACTIVE SANDBOX & LIVE SIMULATIONS
+       ========================================================================== */
+    .sandbox-frame {
+      background: #f8fafc;
+      color: #0f172a;
+      border-radius: 12px;
+      padding: 24px;
+      margin: 16px 0;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .sim-nav {
+      background: #a5b4fc;
+      color: #1e1b4b;
+      padding: 12px 16px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .sim-nav-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .sim-nav-btn {
+      background: #ffffff;
+      color: #4338ca;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .sim-nav-btn:hover, .sim-nav-btn.active {
+      background: #312e81;
+      color: #ffffff;
+    }
+
+    .sim-page-content {
+      background: #fef3c7;
+      color: #78350f;
+      padding: 24px;
+      border-radius: 10px;
+      min-height: 160px;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10b981;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: var(--transition);
+      z-index: 999;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
     footer {
       border-top: 1px solid var(--border-color);
-      padding: 40px 0;
+      padding: 48px 0 36px;
       text-align: center;
       color: var(--text-muted);
       font-size: 0.9rem;
+      background: rgba(9, 13, 22, 0.5);
     }
 
     .footer-content {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 18px;
     }
 
     .footer-links {
       display: flex;
-      gap: 20px;
+      gap: 22px;
       list-style: none;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .footer-links a {
       color: var(--text-secondary);
       text-decoration: none;
       transition: var(--transition);
+      font-weight: 500;
     }
 
     .footer-links a:hover {
       color: var(--react-cyan);
     }
 
-    @media (max-width: 768px) {
-      .days-grid {
-        grid-template-columns: 1fr;
-      }
-      .controls-panel {
-        flex-direction: column;
-        align-items: stretch;
+    /* ==========================================================================
+       RESPONSIVENESS
+       ========================================================================== */
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
       }
       .profile-banner {
         flex-direction: column;
@@ -816,54 +1188,92 @@
       .profile-info {
         flex-direction: column;
       }
+      .profile-actions {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .days-grid {
+        grid-template-columns: 1fr;
+      }
+      .card-actions {
+        grid-template-columns: 1fr;
+      }
+      .controls-panel {
+        flex-direction: column;
+        align-items: stretch;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header Navigation -->
+  <!-- Top Header Navigation -->
   <header>
     <div class="container nav-container">
       <a href="#" class="brand-group">
         <div class="react-atom">
-          <svg viewBox="0 0 115.3 100" width="34" height="34">
+          <svg viewBox="0 0 115.3 100" width="36" height="36">
             <path d="M57.65 0C25.8 0 0 22.4 0 50s25.8 50 57.65 50 57.65-22.4 57.65-50S89.5 0 57.65 0zm0 88C32.4 88 12 71 12 50S32.4 12 57.65 12 103.3 29 103.3 50 82.9 88 57.65 88z" fill="#00d8ff"/>
             <circle cx="57.65" cy="50" r="12" fill="#00d8ff"/>
           </svg>
         </div>
-        <span class="brand-title">React.Portfolio</span>
+        <div class="brand-title-wrap">
+          <span class="brand-title">React.Portfolio</span>
+          <span class="brand-sub">Daily Task & Architecture Hub</span>
+        </div>
       </a>
 
+      <ul class="nav-links">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#daysSection">Tasks (Days 1–5)</a></li>
+        <li><a href="#" onclick="openModal('runModal')">Terminal Guide</a></li>
+        <li><a href="#" onclick="openModal('profileModal')">About Developer</a></li>
+      </ul>
+
       <div class="nav-controls">
-        <button class="btn-icon" id="themeToggle" title="Toggle Dark/Light Mode">
+        <button class="btn-icon" id="themeToggle" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
           <i class="fa-solid fa-moon"></i>
         </button>
         <a href="#daysSection" class="btn-primary">
           <i class="fa-solid fa-layer-group"></i>
-          <span>View Tasks</span>
+          <span>Explore Tasks</span>
         </a>
       </div>
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" id="overview">
     <!-- Hero Section -->
     <section class="hero">
       <div class="badge-pill">
         <span class="pulse-dot"></span>
-        React Developer Roadmap • Daily Task Hub
+        React 19 & Vite Learning Series • Complete Showcase
       </div>
       <h1 class="hero-title">
         Mastering React: <span>Day-Wise Task Portfolio</span>
       </h1>
       <p class="hero-subtitle">
-        A structured, professional showcase documenting everyday concepts, hands-on components, architecture, and project implementations built with React, Vite & Tailwind CSS.
+        A structured, production-grade showcase documenting core React architecture, modular functional components, inline CSS styling, responsive Tailwind CSS v4 layouts, and single-page routing with React Router DOM.
       </p>
+
+      <div class="hero-cta-group">
+        <a href="#daysSection" class="btn-primary">
+          <i class="fa-solid fa-cubes"></i> View All Tasks
+        </a>
+        <button class="btn-secondary" onclick="openModal('runModal')">
+          <i class="fa-solid fa-terminal"></i> Quick Run Guide
+        </button>
+        <button class="btn-secondary" onclick="openModal('profileModal')">
+          <i class="fa-solid fa-user-astronaut"></i> Developer Profile
+        </button>
+      </div>
 
       <!-- Stats Grid -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-number">4</div>
+          <div class="stat-number accent">5 / 5</div>
           <div class="stat-label">Days Documented</div>
         </div>
         <div class="stat-card">
@@ -871,12 +1281,12 @@
           <div class="stat-label">Task Completion</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number">8+</div>
-          <div class="stat-label">Components Built</div>
+          <div class="stat-number accent">15+</div>
+          <div class="stat-label">Components & Pages</div>
         </div>
         <div class="stat-card">
           <div class="stat-number">React 19</div>
-          <div class="stat-label">Core Engine</div>
+          <div class="stat-label">Vite + Tailwind v4 + Router v7</div>
         </div>
       </div>
     </section>
@@ -890,16 +1300,23 @@
           </div>
         </div>
         <div class="profile-details">
-          <h3>Thanuja Ramesh</h3>
-          <p><i class="fa-solid fa-code" style="color: var(--react-cyan)"></i> Java Developer & Frontend Enthusiast • React Series</p>
+          <h3>Thanuja Ramesh <i class="fa-solid fa-circle-check" style="color: var(--emerald-accent); font-size: 1.1rem;" title="Verified Developer"></i></h3>
+          <p><i class="fa-solid fa-code" style="color: var(--react-cyan)"></i> Java Developer & Frontend Enthusiast • React Mastery Series</p>
+          <div class="profile-tech-chips">
+            <span class="tech-pill"><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> React 19</span>
+            <span class="tech-pill"><i class="fa-solid fa-bolt" style="color: var(--amber-accent)"></i> Vite</span>
+            <span class="tech-pill"><i class="fa-brands fa-css3-alt" style="color: var(--sky-accent)"></i> Tailwind v4</span>
+            <span class="tech-pill"><i class="fa-solid fa-route" style="color: var(--purple-accent)"></i> React Router v7</span>
+            <span class="tech-pill"><i class="fa-brands fa-java" style="color: #f89820"></i> Java</span>
+          </div>
         </div>
       </div>
       <div class="profile-actions">
         <button class="action-btn primary-action" onclick="openModal('profileModal')">
-          <i class="fa-solid fa-id-card"></i> View Profile Summary
+          <i class="fa-solid fa-id-card"></i> Developer Dossier
         </button>
         <button class="action-btn" onclick="openModal('runModal')">
-          <i class="fa-solid fa-terminal"></i> How to Run Projects
+          <i class="fa-solid fa-terminal"></i> Terminal Commands
         </button>
       </div>
     </section>
@@ -908,46 +1325,48 @@
     <section class="controls-panel" id="daysSection">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="taskSearch" placeholder="Search tasks, keywords, components (e.g. JSX, Vite, Profile, DOM)..." />
+        <input type="text" id="taskSearch" placeholder="Search tasks, keywords, components (e.g. JSX, Vite, Profile, Router, Hooks)..." />
+        <span class="search-kbd">/</span>
       </div>
 
       <div class="filter-pills">
-        <button class="filter-btn active" data-filter="all">All Days</button>
-        <button class="filter-btn" data-filter="fundamentals">Core & Theory</button>
-        <button class="filter-btn" data-filter="components">Components & Vite</button>
-        <button class="filter-btn" data-filter="styling">UI & Styling</button>
-        <button class="filter-btn" data-filter="navigation">Navigation & Tailwind</button>
+        <button class="filter-btn active" data-filter="all"><i class="fa-solid fa-border-all"></i> All Days (5)</button>
+        <button class="filter-btn" data-filter="fundamentals"><i class="fa-solid fa-brain"></i> Theory & Core</button>
+        <button class="filter-btn" data-filter="components"><i class="fa-solid fa-cubes"></i> Vite & Components</button>
+        <button class="filter-btn" data-filter="styling"><i class="fa-solid fa-palette"></i> UI & Styling</button>
+        <button class="filter-btn" data-filter="navigation"><i class="fa-solid fa-compass"></i> Navigation & Pages</button>
+        <button class="filter-btn" data-filter="routing-state"><i class="fa-solid fa-route"></i> Router & Dynamic State</button>
       </div>
     </section>
 
-    <!-- Days Grid -->
+    <!-- Days Cards Grid -->
     <section class="days-grid" id="cardsContainer">
 
       <!-- DAY 1 CARD -->
-      <article class="day-card" data-category="fundamentals" data-keywords="day 1 react library vs framework component jsx virtual dom real dom reconciliation theory">
+      <article class="day-card" data-category="fundamentals" data-keywords="day 1 react library vs framework component jsx virtual dom real dom reconciliation theory fundamentals architecture">
         <div class="card-top">
           <span class="day-tag">Day 01</span>
           <span class="status-badge"><i class="fa-solid fa-check"></i> Completed</span>
         </div>
 
-        <h2 class="card-title">React Fundamentals & Core Architecture</h2>
+        <h2 class="card-title">React Fundamentals & Internal Architecture</h2>
         <p class="card-desc">
-          Comprehensive deep dive into React's philosophy, library vs framework comparison, declarative UI paradigm, component breakdown, JSX compilation, Virtual DOM, and the reconciliation process.
+          Comprehensive exploration into React's declarative view-layer philosophy, library vs. framework paradigm, component hierarchy, JSX compilation via build tools, Virtual DOM diffing, and reconciliation.
         </p>
 
         <div class="topics-list">
           <span class="topic-chip"><i class="fa-solid fa-book"></i> What is React</span>
           <span class="topic-chip"><i class="fa-solid fa-cube"></i> Component Model</span>
-          <span class="topic-chip"><i class="fa-solid fa-code"></i> JSX Syntax</span>
+          <span class="topic-chip"><i class="fa-solid fa-code"></i> JSX Compilation</span>
           <span class="topic-chip"><i class="fa-solid fa-network-wired"></i> Virtual DOM</span>
           <span class="topic-chip"><i class="fa-solid fa-rotate"></i> Reconciliation</span>
         </div>
 
         <div class="file-box">
-          <div class="file-box-title"><i class="fa-regular fa-folder-open"></i> Task Structure</div>
+          <div class="file-box-title"><i class="fa-regular fa-folder-open"></i> Task Structure (Day1/Task)</div>
           <div class="file-item">
             <span><i class="fa-brands fa-html5" style="color: #e34f26;"></i> Day1/Task/index.html</span>
-            <span class="file-type">HTML Theory Guide</span>
+            <span class="file-type">Theory Documentation</span>
           </div>
         </div>
 
@@ -956,27 +1375,27 @@
             <i class="fa-solid fa-book-open-reader"></i> Read Notes
           </button>
           <a href="Day1/Task/index.html" target="_blank" class="action-btn">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open File
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Guide
           </a>
         </div>
       </article>
 
       <!-- DAY 2 CARD -->
-      <article class="day-card" data-category="components" data-keywords="day 2 vite modular components button card input app jsx form introvite">
+      <article class="day-card" data-category="components" data-keywords="day 2 vite modular components button card input app jsx form introvite atomic assembly es modules">
         <div class="card-top">
           <span class="day-tag">Day 02</span>
           <span class="status-badge"><i class="fa-solid fa-check"></i> Completed</span>
         </div>
 
-        <h2 class="card-title">Introduction to Vite & Modular Components</h2>
+        <h2 class="card-title">Vite Setup & Modular Components</h2>
         <p class="card-desc">
-          Scaffolding a modern React application with Vite. Constructing atomic reusable components (Buttons, Inputs, Cards) and assembling them hierarchically in App.jsx.
+          Scaffolding modern React tooling with Vite. Crafting modular functional components (Button, Input, Card) and assembling them hierarchically inside the root App.jsx orchestrator.
         </p>
 
         <div class="topics-list">
           <span class="topic-chip"><i class="fa-solid fa-bolt"></i> Vite Build Tool</span>
           <span class="topic-chip"><i class="fa-solid fa-puzzle-piece"></i> Functional Components</span>
-          <span class="topic-chip"><i class="fa-solid fa-file-import"></i> ES Modules (Import/Export)</span>
+          <span class="topic-chip"><i class="fa-solid fa-file-import"></i> ES Modules</span>
           <span class="topic-chip"><i class="fa-solid fa-table-columns"></i> Component Assembly</span>
         </div>
 
@@ -988,11 +1407,11 @@
           </div>
           <div class="file-item">
             <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> Input.jsx</span>
-            <span class="file-type">Form Input Fields</span>
+            <span class="file-type">Student Form</span>
           </div>
           <div class="file-item">
             <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> Card.jsx</span>
-            <span class="file-type">Location Card</span>
+            <span class="file-type">City Location Card</span>
           </div>
           <div class="file-item">
             <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> App.jsx</span>
@@ -1004,14 +1423,14 @@
           <button class="action-btn primary-action" onclick="openModal('day2Modal')">
             <i class="fa-solid fa-code"></i> Inspect Code
           </button>
-          <button class="action-btn" onclick="openModal('runDay2Modal')">
-            <i class="fa-solid fa-play"></i> Run Task
+          <button class="action-btn" onclick="openModal('day2LiveModal')">
+            <i class="fa-solid fa-play"></i> Live Preview
           </button>
         </div>
       </article>
 
       <!-- DAY 3 CARD -->
-      <article class="day-card" data-category="styling" data-keywords="day 3 profile card header styling inline styles image asset thanuja ramesh java developer layout">
+      <article class="day-card" data-category="styling" data-keywords="day 3 profile card header styling inline styles image asset thanuja ramesh java developer layout css">
         <div class="card-top">
           <span class="day-tag">Day 03</span>
           <span class="status-badge"><i class="fa-solid fa-check"></i> Completed</span>
@@ -1019,7 +1438,7 @@
 
         <h2 class="card-title">Profile Card & Component Styling</h2>
         <p class="card-desc">
-          Designing a personalized developer profile card UI using React inline styling, CSS elevation (box-shadows), local image bundling, and structured layout composition with Header & Profile components.
+          Engineering a personalized developer profile card UI with React inline styling objects, CSS elevation, local image asset bundling, and multi-component layout composition.
         </p>
 
         <div class="topics-list">
@@ -1033,7 +1452,7 @@
           <div class="file-box-title"><i class="fa-regular fa-folder-open"></i> Key Components (Day3/Task/profile)</div>
           <div class="file-item">
             <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> Header.jsx</span>
-            <span class="file-type">Top Navigation Banner</span>
+            <span class="file-type">Banner Component</span>
           </div>
           <div class="file-item">
             <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> Profile.jsx</span>
@@ -1041,7 +1460,7 @@
           </div>
           <div class="file-item">
             <span><i class="fa-regular fa-image" style="color: #a855f7;"></i> image.jpg</span>
-            <span class="file-type">Profile Media Asset</span>
+            <span class="file-type">Bundled JPG Asset</span>
           </div>
         </div>
 
@@ -1056,37 +1475,37 @@
       </article>
 
       <!-- DAY 4 CARD -->
-      <article class="day-card" data-category="navigation" data-keywords="day 4 reactnavigation react router dom tailwind css useState state counter hero navbar hooks">
+      <article class="day-card" data-category="navigation" data-keywords="day 4 reactnavigation react router dom tailwind css v4 useState counter hero navbar multi page routes services courses gallery contact help notfound">
         <div class="card-top">
           <span class="day-tag">Day 04</span>
           <span class="status-badge"><i class="fa-solid fa-check"></i> Completed</span>
         </div>
 
-        <h2 class="card-title">React Navigation & Modern Layouts</h2>
+        <h2 class="card-title">React Navigation & 8-Page Multi-Route App</h2>
         <p class="card-desc">
-          Building responsive web layouts with Tailwind CSS v4, dynamic React state handling with useState hooks, documentation hubs, and integrating React Router DOM for multi-page navigation architectures.
+          Building a responsive multi-page web application featuring Tailwind CSS v4, React Router DOM v7, modular navigation, 8 dedicated page routes (Home, About, Services, Courses, Gallery, Contact, Help, 404), and Hero layout.
         </p>
 
         <div class="topics-list">
           <span class="topic-chip"><i class="fa-solid fa-compass"></i> React Navigation</span>
           <span class="topic-chip"><i class="fa-brands fa-css3-alt"></i> Tailwind CSS v4</span>
-          <span class="topic-chip"><i class="fa-solid fa-toggle-on"></i> useState Hook</span>
-          <span class="topic-chip"><i class="fa-solid fa-route"></i> React Router DOM</span>
+          <span class="topic-chip"><i class="fa-solid fa-route"></i> 8 Dedicated Pages</span>
+          <span class="topic-chip"><i class="fa-solid fa-triangle-exclamation"></i> 404 Catch-All</span>
         </div>
 
         <div class="file-box">
-          <div class="file-box-title"><i class="fa-regular fa-folder-open"></i> Key Components (Day4/reactnavigation)</div>
+          <div class="file-box-title"><i class="fa-regular fa-folder-open"></i> Key Files (Day4/Task/reactnavigation)</div>
           <div class="file-item">
-            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> Navbar.jsx</span>
-            <span class="file-type">Responsive Nav Bar</span>
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> NavBar.jsx</span>
+            <span class="file-type">Multi-Link Nav</span>
           </div>
           <div class="file-item">
             <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> App.jsx</span>
-            <span class="file-type">Interactive Counter & Hero</span>
+            <span class="file-type">Router & Routes</span>
           </div>
           <div class="file-item">
-            <span><i class="fa-solid fa-cube" style="color: #38bdf8;"></i> @tailwindcss/vite</span>
-            <span class="file-type">Styling Engine</span>
+            <span><i class="fa-solid fa-folder" style="color: var(--amber-accent)"></i> src/pages/</span>
+            <span class="file-type">8 Page Components</span>
           </div>
         </div>
 
@@ -1094,8 +1513,57 @@
           <button class="action-btn primary-action" onclick="openModal('day4Modal')">
             <i class="fa-solid fa-code"></i> Inspect Code
           </button>
-          <button class="action-btn" onclick="openModal('runDay4Modal')">
-            <i class="fa-solid fa-terminal"></i> Run Project
+          <button class="action-btn" onclick="openModal('day4LiveModal')">
+            <i class="fa-solid fa-eye"></i> Multi-Page Demo
+          </button>
+        </div>
+      </article>
+
+      <!-- DAY 5 CARD (NEW & FULLY INTEGRATED) -->
+      <article class="day-card" data-category="routing-state" data-keywords="day 5 routerdom react router dom routes route link dynamic state studentName age course isActive fees conditional rendering spa">
+        <div class="card-top">
+          <span class="day-tag">Day 05</span>
+          <span class="status-badge"><i class="fa-solid fa-check"></i> Completed</span>
+        </div>
+
+        <h2 class="card-title">React Router DOM & Dynamic State Props</h2>
+        <p class="card-desc">
+          Mastering modern declarative routing using &lt;Routes&gt;, &lt;Route&gt;, and &lt;Link&gt; alongside dynamic data binding, state expressions, conditional rendering logic (ternary active status), and clean SPA structure.
+        </p>
+
+        <div class="topics-list">
+          <span class="topic-chip"><i class="fa-solid fa-route"></i> React Router DOM</span>
+          <span class="topic-chip"><i class="fa-solid fa-link"></i> Declarative Links</span>
+          <span class="topic-chip"><i class="fa-solid fa-database"></i> Dynamic Data State</span>
+          <span class="topic-chip"><i class="fa-solid fa-code-branch"></i> Conditional Logic</span>
+        </div>
+
+        <div class="file-box">
+          <div class="file-box-title"><i class="fa-regular fa-folder-open"></i> Key Files (Day5/routerdom)</div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> App.jsx</span>
+            <span class="file-type">Route Definitions</span>
+          </div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> Home.jsx</span>
+            <span class="file-type">Dynamic Data View</span>
+          </div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> About.jsx</span>
+            <span class="file-type">Page Component</span>
+          </div>
+          <div class="file-item">
+            <span><i class="fa-brands fa-react" style="color: var(--react-cyan)"></i> NavBar.jsx</span>
+            <span class="file-type">Router Navigation</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="action-btn primary-action" onclick="openModal('day5Modal')">
+            <i class="fa-solid fa-code"></i> Inspect Code
+          </button>
+          <button class="action-btn" onclick="openModal('day5LiveModal')">
+            <i class="fa-solid fa-play"></i> Live Simulator
           </button>
         </div>
       </article>
@@ -1103,88 +1571,115 @@
     </section>
   </main>
 
-  <!-- Modals -->
+  <!-- ==========================================================================
+       MODALS SYSTEM
+       ========================================================================== -->
 
-  <!-- DAY 1 MODAL (FULL NOTES VIEWER) -->
+  <!-- DAY 1 MODAL (THEORY & FUNDAMENTALS READER) -->
   <div class="modal-overlay" id="day1Modal">
     <div class="modal-container">
       <div class="modal-header">
         <div class="modal-title">
           <i class="fa-solid fa-book" style="color: var(--react-cyan);"></i>
-          Day 1: React Fundamentals & Core Notes
+          Day 01: React Fundamentals & Core Architecture Guide
         </div>
         <button class="modal-close" onclick="closeModal('day1Modal')"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
-        <h4>1. What is React?</h4>
-        <p>
-          React is an open-source JavaScript library used to build interactive and reusable user interfaces, especially for single-page web applications. React was created at Facebook and open-sourced in 2013. Maintained by Meta and a vast open-source community, React focuses directly on the View layer of an application.
-        </p>
+        
+        <div class="theory-section">
+          <h4><i class="fa-solid fa-atom"></i> 1. What is React?</h4>
+          <p>
+            React is an open-source JavaScript library developed by Facebook (Meta) in 2013 for building high-performance, interactive, and modular user interfaces. It focuses directly on the View layer of the MVC pattern and uses a <strong>declarative programming model</strong>.
+          </p>
+          <p>
+            Instead of manually manipulating DOM nodes via <code>document.getElementById</code>, developers describe what the UI should look like for a given state, and React handles the DOM rendering automatically.
+          </p>
+        </div>
 
-        <h4>2. Is React a Library or a Framework?</h4>
-        <p>
-          React is a <strong>library</strong>, not a framework. It is unopinionated and focused exclusively on the view layer. Unlike frameworks (like Angular), React does not enforce routing, state management, or HTTP clients out of the box, allowing developers the freedom to assemble their preferred ecosystem.
-        </p>
+        <div class="theory-section">
+          <h4><i class="fa-solid fa-scale-balanced"></i> 2. Is React a Library or a Framework?</h4>
+          <p>
+            React is strictly a <strong>library</strong>, not a full framework. It is unopinionated about routing, data fetching, build tools, or styling. Developers are empowered to integrate ecosystem tools (such as React Router, Vite, Axios, Tailwind CSS) based on project requirements.
+          </p>
+        </div>
 
-        <h4>3. What is a Component?</h4>
-        <p>
-          A component is an independent, reusable piece of UI. In modern React, components are JavaScript functions that accept inputs (props) and return JSX elements describing what should appear on screen.
-        </p>
+        <div class="theory-section">
+          <h4><i class="fa-solid fa-puzzle-piece"></i> 3. What is a Component & Why are they Essential?</h4>
+          <p>
+            A component is a self-contained, reusable building block of a user interface. In modern React, components are JavaScript functions that accept props and return JSX.
+          </p>
+          <ul>
+            <li><strong>Reusability:</strong> Write a component once (e.g., Button, Navbar) and render it anywhere.</li>
+            <li><strong>Maintainability:</strong> Eliminates monolithic multi-thousand-line HTML files.</li>
+            <li><strong>Separation of Concerns:</strong> Each component manages its own structure, style, and state logic.</li>
+            <li><strong>Testability:</strong> Independent units are easy to verify with unit testing tools.</li>
+          </ul>
+        </div>
 
-        <h4>4. Why are Components Important?</h4>
-        <ul>
-          <li><strong>Reusability:</strong> Write once, render anywhere across your application.</li>
-          <li><strong>Maintainability & Readability:</strong> Code is separated into clean, modular units rather than one giant monolithic file.</li>
-          <li><strong>Separation of Concerns:</strong> Each component manages its own structure, style, and behavior.</li>
-          <li><strong>Testability:</strong> Isolated components can be unit-tested efficiently.</li>
-        </ul>
-
-        <h4>5. What is JSX (JavaScript XML)?</h4>
-        <p>
-          JSX is a syntax extension for JavaScript that looks similar to HTML. It enables developers to write UI markup directly within JavaScript files. Build tools like Vite convert JSX into valid browser-executable JavaScript.
-        </p>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <div class="theory-section">
+          <h4><i class="fa-solid fa-code"></i> 4. JSX (JavaScript XML) & Compilation</h4>
+          <p>
+            JSX is a syntax extension allowing HTML-like tags inside JavaScript. Compilers (such as Babel, ESBuild, or Rolldown via Vite) transform JSX into standard JavaScript function calls (<code>React.createElement</code> or the JSX transform).
+          </p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+// JSX Syntax
 const App = () => {
   return (
-    &lt;div className="card"&gt;
-      &lt;h1&gt;Hello React!&lt;/h1&gt;
+    &lt;div className="container"&gt;
+      &lt;h1&gt;Hello React 19!&lt;/h1&gt;
+      &lt;p&gt;Declarative UI in action.&lt;/p&gt;
     &lt;/div&gt;
   );
 };
+          </div>
         </div>
 
-        <h4>6. Real DOM vs. Virtual DOM & Reconciliation</h4>
-        <p>
-          <strong>Real DOM:</strong> The tree representation of HTML elements in the browser. Direct manipulations can be slow and computationally expensive.
-        </p>
-        <p>
-          <strong>Virtual DOM:</strong> A lightweight in-memory representation of the Real DOM kept in memory.
-        </p>
-        <p>
-          <strong>Reconciliation:</strong> The process where React compares the new Virtual DOM tree against the previous one (diffing algorithm), determines minimal updates, and efficiently applies changes to the browser DOM.
-        </p>
+        <div class="theory-section">
+          <h4><i class="fa-solid fa-network-wired"></i> 5. Virtual DOM, Real DOM & Reconciliation</h4>
+          <p>
+            <strong>Real DOM:</strong> The browser's tree representation of HTML nodes. Direct updates cause expensive browser recalculations (reflow and repaint).
+          </p>
+          <p>
+            <strong>Virtual DOM:</strong> A lightweight in-memory representation of the Real DOM kept synchronized in memory.
+          </p>
+          <p>
+            <strong>Reconciliation:</strong> When state changes, React produces a new Virtual DOM tree, runs an efficient <em>diffing algorithm</em> against the previous snapshot, calculates the minimal changeset, and batch-updates the Real DOM.
+          </p>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <!-- DAY 2 MODAL (CODE VIEWER) -->
+  <!-- DAY 2 MODAL (VITE & MODULAR CODE VIEWER) -->
   <div class="modal-overlay" id="day2Modal">
     <div class="modal-container">
       <div class="modal-header">
         <div class="modal-title">
           <i class="fa-solid fa-code" style="color: var(--react-cyan);"></i>
-          Day 2: Component Architecture & Source Code
+          Day 02: Vite Setup & Component Source Code
         </div>
         <button class="modal-close" onclick="closeModal('day2Modal')"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
-        <h4>📁 App.jsx (Orchestrator)</h4>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-import Button from "./Button"
-import Input from "./Input"
-import Card from "./Card"
+        
+        <div class="tab-nav">
+          <button class="tab-btn active" onclick="switchTab(this, 'd2-app')">App.jsx</button>
+          <button class="tab-btn" onclick="switchTab(this, 'd2-btn')">Button.jsx</button>
+          <button class="tab-btn" onclick="switchTab(this, 'd2-input')">Input.jsx</button>
+          <button class="tab-btn" onclick="switchTab(this, 'd2-card')">Card.jsx</button>
+        </div>
+
+        <!-- App.jsx -->
+        <div class="tab-pane active" id="d2-app">
+          <p>📁 <code>src/App.jsx</code> — Master Component Orchestrator</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+import Button from "./Button";
+import Input from "./Input";
+import Card from "./Card";
 
 const App = () => {
   return (
@@ -1200,11 +1695,14 @@ const App = () => {
 };
 
 export default App;
+          </div>
         </div>
 
-        <h4>📁 Button.jsx</h4>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <!-- Button.jsx -->
+        <div class="tab-pane" id="d2-btn">
+          <p>📁 <code>src/Button.jsx</code> — Reusable Interactive Button</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
 const Button = () => {
   return (
     &lt;&gt;
@@ -1214,12 +1712,16 @@ const Button = () => {
     &lt;/&gt;
   );
 };
+
 export default Button;
+          </div>
         </div>
 
-        <h4>📁 Input.jsx</h4>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <!-- Input.jsx -->
+        <div class="tab-pane" id="d2-input">
+          <p>📁 <code>src/Input.jsx</code> — Student Form Component</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
 const Input = () => {
   return (
     &lt;&gt;
@@ -1232,12 +1734,16 @@ const Input = () => {
     &lt;/&gt;
   );
 };
+
 export default Input;
+          </div>
         </div>
 
-        <h4>📁 Card.jsx</h4>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <!-- Card.jsx -->
+        <div class="tab-pane" id="d2-card">
+          <p>📁 <code>src/Card.jsx</code> — Location Card Component</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
 const Card = () => {
   return (
     &lt;&gt;
@@ -1248,26 +1754,77 @@ const Card = () => {
     &lt;/&gt;
   );
 };
+
 export default Card;
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 LIVE PREVIEW MODAL -->
+  <div class="modal-overlay" id="day2LiveModal">
+    <div class="modal-container" style="max-width: 580px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-play" style="color: var(--react-cyan);"></i>
+          Day 02: Interactive Component Simulation
+        </div>
+        <button class="modal-close" onclick="closeModal('day2LiveModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 14px;">Live simulated rendering of Day 2 modular components:</p>
+        <div class="sandbox-frame">
+          <h2 style="font-size: 1.4rem; color: #1e293b; margin-bottom: 16px; border-bottom: 2px solid #cbd5e1; padding-bottom: 6px;">DAY-2 Task</h2>
+          
+          <!-- Simulated Button Component -->
+          <div style="margin-bottom: 20px;">
+            <p style="font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase;">&lt;Button /&gt;</p>
+            <button style="background: #0284c7; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: 600;" onclick="showToast('Button clicked!')">Click</button>
+          </div>
+
+          <!-- Simulated Input Component -->
+          <div style="margin-bottom: 20px; background: white; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <p style="font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase;">&lt;Input /&gt;</p>
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px; color: #0f172a;">Student Form</h3>
+            <input type="text" placeholder="ENTER THE NAME" style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 10px;" />
+            <input type="text" placeholder="ENTER YOUR EMAIL" style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px;" />
+          </div>
+
+          <!-- Simulated Card Component -->
+          <div style="background: #f1f5f9; padding: 16px; border-radius: 8px; border: 1px solid #cbd5e1; text-align: center;">
+            <p style="font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase; text-align: left;">&lt;Card /&gt;</p>
+            <h2 style="font-size: 1.3rem; color: #1e293b; margin-bottom: 10px;">GUDIYATHAM</h2>
+            <button style="background: #475569; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer;" onclick="showToast('Card Submitted!')">Submit</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- DAY 3 MODAL (CODE VIEWER) -->
+  <!-- DAY 3 MODAL (PROFILE STYLING CODE VIEWER) -->
   <div class="modal-overlay" id="day3Modal">
     <div class="modal-container">
       <div class="modal-header">
         <div class="modal-title">
           <i class="fa-solid fa-code" style="color: var(--react-cyan);"></i>
-          Day 3: Profile Card & Custom Styling Source Code
+          Day 03: Profile Card & Custom Styling Code
         </div>
         <button class="modal-close" onclick="closeModal('day3Modal')"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
-        <h4>📁 Profile.jsx (Profile Card Component)</h4>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        
+        <div class="tab-nav">
+          <button class="tab-btn active" onclick="switchTab(this, 'd3-profile')">Profile.jsx</button>
+          <button class="tab-btn" onclick="switchTab(this, 'd3-header')">Header.jsx</button>
+        </div>
+
+        <!-- Profile.jsx -->
+        <div class="tab-pane active" id="d3-profile">
+          <p>📁 <code>src/Profile.jsx</code> — Profile Card with Inline Styling</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
 import Image from "./assets/image/image.jpg";
 
 const ProfileCard = () => {
@@ -1283,7 +1840,7 @@ const ProfileCard = () => {
       }}&gt;
         &lt;h2 style={{ padding: "10px", textAlign: "center" }}&gt;My Profile&lt;/h2&gt;
         &lt;div style={{ textAlign: "center" }}&gt;
-          &lt;img src={Image} alt="Profile Avatar" width="150px" /&gt;
+          &lt;img src={Image} alt="Profile" width="150px" /&gt;
           &lt;p&gt;&lt;strong&gt;Name :&lt;/strong&gt; Thanuja Ramesh&lt;/p&gt;
           &lt;p&gt;&lt;strong&gt;Role :&lt;/strong&gt; Java Developer&lt;/p&gt;
           &lt;button style={{
@@ -1298,11 +1855,14 @@ const ProfileCard = () => {
 };
 
 export default ProfileCard;
+          </div>
         </div>
 
-        <h4>📁 Header.jsx</h4>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <!-- Header.jsx -->
+        <div class="tab-pane" id="d3-header">
+          <p>📁 <code>src/Header.jsx</code> — Banner Component</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
 const Header = () => {
   return (
     &lt;&gt;
@@ -1320,95 +1880,168 @@ const Header = () => {
 };
 
 export default Header;
+          </div>
         </div>
+
       </div>
     </div>
   </div>
 
   <!-- DAY 3 LIVE SIMULATION MODAL -->
   <div class="modal-overlay" id="previewProfileModal">
-    <div class="modal-container" style="max-width: 500px;">
+    <div class="modal-container" style="max-width: 520px;">
       <div class="modal-header">
         <div class="modal-title">
           <i class="fa-solid fa-address-card" style="color: var(--react-cyan);"></i>
-          Day 3: Profile Card Render Preview
+          Day 03: Profile Card Live Render Preview
         </div>
         <button class="modal-close" onclick="closeModal('previewProfileModal')"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="modal-body" style="background: #e5e7eb; color: #111827; border-radius: 0 0 20px 20px;">
+      <div class="modal-body" style="background: #e2e8f0; color: #111827;">
+        
         <!-- Header simulation -->
-        <div style="background-color: beige; color: black; padding: 10px; text-align: center; border-radius: 10px; margin-bottom: 15px;">
-          <h2 style="font-size: 1.5rem; margin: 0;">Profile Card</h2>
+        <div style="background-color: beige; color: black; padding: 12px; text-align: center; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+          <h2 style="font-size: 1.4rem; margin: 0;">Profile Card</h2>
         </div>
 
         <!-- Profile Card simulation -->
-        <div style="background: #ffffff; width: 100%; max-width: 380px; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08); margin: 0 auto; text-align: center;">
-          <h3 style="padding: 5px; margin-bottom: 12px; font-weight: 700;">My Profile</h3>
+        <div style="background: #ffffff; width: 100%; max-width: 380px; padding: 25px; border-radius: 10px; box-shadow: 1px 2px 8px rgba(0,0,0,0.15); margin: 0 auto; text-align: center;">
+          <h3 style="padding: 5px; margin-bottom: 12px; font-weight: 700; color: #1e293b;">My Profile</h3>
           
-          <div style="width: 130px; height: 130px; border-radius: 50%; background: #e0e7ff; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #4f46e5; border: 3px solid #6366f1;">
-            <i class="fa-solid fa-user-tie"></i>
+          <div style="width: 120px; height: 120px; border-radius: 50%; background: #e0e7ff; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 3.2rem; color: #4f46e5; border: 3px solid #6366f1;">
+            <i class="fa-solid fa-user-astronaut"></i>
           </div>
 
-          <p style="margin-bottom: 8px; font-size: 1.05rem;"><strong>Name :</strong> Thanuja Ramesh</p>
-          <p style="margin-bottom: 16px; font-size: 1.05rem;"><strong>Role :</strong> Java Developer</p>
+          <p style="margin-bottom: 8px; font-size: 1.05rem; color: #334155;"><strong>Name :</strong> Thanuja Ramesh</p>
+          <p style="margin-bottom: 18px; font-size: 1.05rem; color: #334155;"><strong>Role :</strong> Java Developer</p>
           
-          <button style="background-color: #6b7280; color: white; border: none; padding: 10px 24px; border-radius: 10px; cursor: pointer; font-weight: 600;">
+          <button style="background-color: grey; color: white; border: none; padding: 10px 24px; border-radius: 10px; cursor: pointer; font-weight: 600;" onclick="showToast('Profile Action Submitted!')">
             Submit
           </button>
         </div>
+
       </div>
     </div>
   </div>
 
-  <!-- DAY 4 MODAL (CODE VIEWER) -->
+  <!-- DAY 4 MODAL (REACT NAVIGATION CODE VIEWER) -->
   <div class="modal-overlay" id="day4Modal">
     <div class="modal-container">
       <div class="modal-header">
         <div class="modal-title">
           <i class="fa-solid fa-compass" style="color: var(--react-cyan);"></i>
-          Day 4: React Navigation & Tailwind Layout
+          Day 04: React Navigation & Multi-Page Architecture Code
         </div>
         <button class="modal-close" onclick="closeModal('day4Modal')"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
-        <h4>📁 App.jsx (State Management & Layout)</h4>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    &lt;&gt;
-      &lt;section id="center"&gt;
-        &lt;div className="hero"&gt;
-          &lt;img src={heroImg} className="base" width="170" height="179" alt="" /&gt;
-          &lt;img src={reactLogo} className="framework" alt="React logo" /&gt;
-          &lt;img src={viteLogo} className="vite" alt="Vite logo" /&gt;
-        &lt;/div&gt;
-        &lt;div&gt;
-          &lt;h1&gt;Get started&lt;/h1&gt;
-          &lt;p&gt;Edit &lt;code&gt;src/App.jsx&lt;/code&gt; and save to test &lt;code&gt;HMR&lt;/code&gt;&lt;/p&gt;
-        &lt;/div&gt;
-        &lt;button type="button" className="counter" onClick={() =&gt; setCount((count) =&gt; count + 1)}&gt;
-          Count is {count}
-        &lt;/button&gt;
-      &lt;/section&gt;
-    &lt;/&gt;
-  )
-}
-
-export default App
+        
+        <div class="tab-nav">
+          <button class="tab-btn active" onclick="switchTab(this, 'd4-app')">App.jsx</button>
+          <button class="tab-btn" onclick="switchTab(this, 'd4-nav')">NavBar.jsx</button>
+          <button class="tab-btn" onclick="switchTab(this, 'd4-home')">Home.jsx</button>
+          <button class="tab-btn" onclick="switchTab(this, 'd4-pkg')">package.json</button>
         </div>
 
-        <h4>📁 Package Configuration & Dependencies</h4>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <!-- App.jsx -->
+        <div class="tab-pane active" id="d4-app">
+          <p>📁 <code>src/App.jsx</code> — React Router DOM 8-Route Architecture</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+import { Route, Routes } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Services from "./pages/Services";
+import Courses from "./pages/Courses";
+import Gallery from "./pages/Gallery";
+import Contact from "./pages/Contact";
+import Help from "./pages/Help";
+import NotFound from "./pages/NotFound";
+
+const App = () => {
+  return (
+    &lt;&gt;
+      &lt;NavBar /&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+        &lt;Route path="/services" element={&lt;Services /&gt;} /&gt;
+        &lt;Route path="/courses" element={&lt;Courses /&gt;} /&gt;
+        &lt;Route path="/gallery" element={&lt;Gallery /&gt;} /&gt;
+        &lt;Route path="/contact" element={&lt;Contact /&gt;} /&gt;
+        &lt;Route path="/help" element={&lt;Help /&gt;} /&gt;
+        &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/&gt;
+  );
+};
+
+export default App;
+          </div>
+        </div>
+
+        <!-- NavBar.jsx -->
+        <div class="tab-pane" id="d4-nav">
+          <p>📁 <code>src/components/NavBar.jsx</code> — Responsive Tailwind Navigation Bar</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+import { Link } from 'react-router-dom';
+import logo from '../assets/hero.png';
+
+const NavBar = () => {
+  return (
+    &lt;&gt;
+      &lt;div className="bg-indigo-300 text-black p-2 flex justify-around items-center"&gt;
+        &lt;div className='mx-4 bg-amber-100 p-2 text-center text-black w-30 rounded-2xl'&gt;
+          &lt;img src={logo} alt="Logo" /&gt;
+        &lt;/div&gt;
+        &lt;div className='flex gap-20 mx-5'&gt;
+          &lt;Link to="/"&gt;Home&lt;/Link&gt;
+          &lt;Link to="/about"&gt;About&lt;/Link&gt;
+          &lt;Link to="/services"&gt;Services&lt;/Link&gt;
+          &lt;Link to="/courses"&gt;Courses&lt;/Link&gt;
+          &lt;Link to="/gallery"&gt;Gallery&lt;/Link&gt;
+          &lt;Link to="/contact"&gt;Contact&lt;/Link&gt;
+          &lt;Link to="/help"&gt;Help&lt;/Link&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+
+export default NavBar;
+          </div>
+        </div>
+
+        <!-- Home.jsx -->
+        <div class="tab-pane" id="d4-home">
+          <p>📁 <code>src/pages/Home.jsx</code> — Landing Page</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+const Home = () => {
+  return (
+    &lt;&gt;
+      &lt;div className="bg-amber-200 text-black p-10"&gt;
+        &lt;h1&gt;Home Page&lt;/h1&gt;
+        &lt;p&gt;
+          Welcome to our website. A home page is the main introductory 
+          web page of a website that serves as a central starting point.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+
+export default Home;
+          </div>
+        </div>
+
+        <!-- package.json -->
+        <div class="tab-pane" id="d4-pkg">
+          <p>📁 <code>package.json</code> — Modern Dependencies Stack</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
 {
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
@@ -1418,112 +2051,326 @@ export default App
     "tailwindcss": "^4.3.3"
   }
 }
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 4 LIVE MULTI-PAGE SIMULATOR -->
+  <div class="modal-overlay" id="day4LiveModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-compass" style="color: var(--react-cyan);"></i>
+          Day 04: Interactive Multi-Page Navigation Simulation
+        </div>
+        <button class="modal-close" onclick="closeModal('day4LiveModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 12px;">Click any navigation tab to test the simulated React Router switching:</p>
+        
+        <div class="sandbox-frame" style="padding: 16px;">
+          <!-- Simulated NavBar -->
+          <div class="sim-nav">
+            <div style="background: #fef3c7; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 800; color: #78350f;">
+              ⚛ ReactNav
+            </div>
+            <div class="sim-nav-links">
+              <button class="sim-nav-btn active" onclick="navigateDay4Sim('home', this)">Home</button>
+              <button class="sim-nav-btn" onclick="navigateDay4Sim('about', this)">About</button>
+              <button class="sim-nav-btn" onclick="navigateDay4Sim('services', this)">Services</button>
+              <button class="sim-nav-btn" onclick="navigateDay4Sim('courses', this)">Courses</button>
+              <button class="sim-nav-btn" onclick="navigateDay4Sim('gallery', this)">Gallery</button>
+              <button class="sim-nav-btn" onclick="navigateDay4Sim('contact', this)">Contact</button>
+              <button class="sim-nav-btn" onclick="navigateDay4Sim('help', this)">Help</button>
+              <button class="sim-nav-btn" onclick="navigateDay4Sim('notfound', this)">404</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Render Output -->
+          <div class="sim-page-content" id="d4SimContent">
+            <h2 style="font-size: 1.4rem; margin-bottom: 8px;">Home Page</h2>
+            <p>Welcome to our website. A home page is the main introductory web page that serves as a central starting point and links visitors to other sections.</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- HOW TO RUN MODAL -->
+  <!-- DAY 5 MODAL (REACT ROUTER DOM & DYNAMIC STATE CODE VIEWER) -->
+  <div class="modal-overlay" id="day5Modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-code" style="color: var(--react-cyan);"></i>
+          Day 05: React Router DOM & Dynamic State Source Code
+        </div>
+        <button class="modal-close" onclick="closeModal('day5Modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="tab-nav">
+          <button class="tab-btn active" onclick="switchTab(this, 'd5-app')">App.jsx</button>
+          <button class="tab-btn" onclick="switchTab(this, 'd5-home')">Home.jsx</button>
+          <button class="tab-btn" onclick="switchTab(this, 'd5-about')">About.jsx</button>
+          <button class="tab-btn" onclick="switchTab(this, 'd5-nav')">NavBar.jsx</button>
+        </div>
+
+        <!-- App.jsx -->
+        <div class="tab-pane active" id="d5-app">
+          <p>📁 <code>src/App.jsx</code> — Route Structure</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+import { Route, Routes } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Home from "./pages/Home";
+import About from "./pages/About";
+
+const App = () => {
+  return (
+    &lt;&gt;
+      &lt;NavBar /&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/&gt;
+  );
+};
+
+export default App;
+          </div>
+        </div>
+
+        <!-- Home.jsx -->
+        <div class="tab-pane" id="d5-home">
+          <p>📁 <code>src/pages/Home.jsx</code> — Dynamic State & Conditional Rendering</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+const Home = () => {
+  const studentName = "Thanuja Ramesh";
+  const Age = 24;
+  const course = "Java";
+  const isActive = true;
+  const Fees = 50000;
+  
+  const changeData = isActive ? "Active" : "Not Active";
+
+  return (
+    &lt;&gt;
+      &lt;div className="bg-amber-200 text-black p-10"&gt;
+        &lt;p&gt;Student Name: {studentName}&lt;/p&gt;
+        &lt;p&gt;Age: {Age}&lt;/p&gt;
+        &lt;p&gt;Course: {course}&lt;/p&gt;
+        &lt;p&gt;Fees: {Fees}&lt;/p&gt;
+        &lt;h2&gt;Status: {changeData}&lt;/h2&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+
+export default Home;
+          </div>
+        </div>
+
+        <!-- About.jsx -->
+        <div class="tab-pane" id="d5-about">
+          <p>📁 <code>src/pages/About.jsx</code> — About Page Component</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+import React from "react";
+
+const About = () => {
+  return (
+    &lt;&gt;
+      &lt;div className="bg-yellow-300 text-black p-10"&gt;
+        &lt;h2&gt;About Us&lt;/h2&gt;
+        &lt;p&gt;Information about our platform and engineering objectives.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+
+export default About;
+          </div>
+        </div>
+
+        <!-- NavBar.jsx -->
+        <div class="tab-pane" id="d5-nav">
+          <p>📁 <code>src/components/NavBar.jsx</code> — Declarative Link Navigation</p>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+import { Link } from "react-router-dom";
+import logo from "../assets/react.svg";
+
+const NavBar = () => {
+  return (
+    &lt;&gt;
+      &lt;div className="bg-indigo-300 text-black p-2 flex justify-around items-center"&gt;
+        &lt;div className="mx-2 bg-amber-100 p-2 text-center text-black w-10 rounded-2xl"&gt;
+          &lt;img src={logo} alt="React logo" /&gt;
+        &lt;/div&gt;
+        &lt;div className="flex gap-20 mx-5"&gt;
+          &lt;Link to="/"&gt;Home&lt;/Link&gt;
+          &lt;Link to="/about"&gt;About&lt;/Link&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+
+export default NavBar;
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 5 LIVE SIMULATOR -->
+  <div class="modal-overlay" id="day5LiveModal">
+    <div class="modal-container" style="max-width: 620px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-play" style="color: var(--react-cyan);"></i>
+          Day 05: React Router & Dynamic State Live Simulation
+        </div>
+        <button class="modal-close" onclick="closeModal('day5LiveModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 12px;">Test dynamic state expressions & live status toggling:</p>
+        
+        <div class="sandbox-frame" style="padding: 16px;">
+          <!-- Simulated NavBar -->
+          <div class="sim-nav">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="background: #fef3c7; padding: 4px 8px; border-radius: 6px; font-weight: 800; color: #78350f;">⚛ RouterDOM</span>
+            </div>
+            <div class="sim-nav-links">
+              <button class="sim-nav-btn active" id="d5BtnHome" onclick="setDay5Route('home')">Home</button>
+              <button class="sim-nav-btn" id="d5BtnAbout" onclick="setDay5Route('about')">About</button>
+            </div>
+          </div>
+
+          <!-- Dynamic State Content -->
+          <div id="d5HomeView" class="sim-page-content" style="background: #fef08a; color: #713f12;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+              <h3 style="font-size: 1.2rem; font-weight: 700;">Student Details Record</h3>
+              <button onclick="toggleDay5Status()" style="background: #475569; color: white; border: none; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">
+                Toggle Status
+              </button>
+            </div>
+            <p><strong>Student Name:</strong> Thanuja Ramesh</p>
+            <p><strong>Age:</strong> 24</p>
+            <p><strong>Course:</strong> Java</p>
+            <p><strong>Fees:</strong> ₹50,000</p>
+            <h4 style="margin-top: 10px; font-size: 1.05rem;">
+              Status: <span id="d5StatusBadge" style="background: #15803d; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem;">Active</span>
+            </h4>
+          </div>
+
+          <!-- About View (Hidden initially) -->
+          <div id="d5AboutView" class="sim-page-content" style="background: #fef08a; color: #713f12; display: none;">
+            <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">About Page</h3>
+            <p>Welcome to the About section! In this Day 5 architecture, routes are cleanly separated using React Router DOM, delivering instant transitions without page refreshes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW TO RUN TERMINAL MODAL -->
   <div class="modal-overlay" id="runModal">
     <div class="modal-container">
       <div class="modal-header">
         <div class="modal-title">
           <i class="fa-solid fa-terminal" style="color: var(--react-cyan);"></i>
-          How to Run Vite & React Tasks
+          Terminal Run Commands (Days 2 – 5)
         </div>
         <button class="modal-close" onclick="closeModal('runModal')"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
-        <h4>🚀 Running Day 2 Task (introvite)</h4>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-cd Day2/Task/introvite
-npm install
-npm run dev
-        </div>
-
-        <h4>🚀 Running Day 3 Task (profile)</h4>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-cd Day3/Task/profile
-npm install
-npm run dev
-        </div>
-
-        <h4>🚀 Running Day 4 Task (reactnavigation)</h4>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-cd Day4/reactnavigation
-npm install
-npm run dev
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- RUN DAY 2 MODAL -->
-  <div class="modal-overlay" id="runDay2Modal">
-    <div class="modal-container" style="max-width: 550px;">
-      <div class="modal-header">
-        <div class="modal-title"><i class="fa-solid fa-terminal" style="color: var(--react-cyan);"></i> Run Day 2 Task</div>
-        <button class="modal-close" onclick="closeModal('runDay2Modal')"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
-        <p>Run the following commands in your terminal to launch the Day 2 Vite server:</p>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        
+        <div class="theory-section">
+          <h4>🚀 Day 02: Modular Components (introvite)</h4>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
 cd "d:\React\Day2\Task\introvite"
+npm install
 npm run dev
+          </div>
         </div>
+
+        <div class="theory-section">
+          <h4>🚀 Day 03: Profile Card & Styling (profile)</h4>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+cd "d:\React\Day3\Task\profile"
+npm install
+npm run dev
+          </div>
+        </div>
+
+        <div class="theory-section">
+          <h4>🚀 Day 04: React Navigation & Tailwind (reactnavigation)</h4>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+cd "d:\React\Day4\Task\reactnavigation"
+npm install
+npm run dev
+          </div>
+        </div>
+
+        <div class="theory-section">
+          <h4>🚀 Day 05: React Router DOM (routerdom)</h4>
+          <div class="code-preview">
+<button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+cd "d:\React\Day5\routerdom"
+npm install
+npm run dev
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <!-- RUN DAY 4 MODAL -->
-  <div class="modal-overlay" id="runDay4Modal">
-    <div class="modal-container" style="max-width: 550px;">
-      <div class="modal-header">
-        <div class="modal-title"><i class="fa-solid fa-terminal" style="color: var(--react-cyan);"></i> Run Day 4 Task</div>
-        <button class="modal-close" onclick="closeModal('runDay4Modal')"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
-        <p>Run the following commands in your terminal to launch Day 4 React Navigation project:</p>
-        <div class="code-preview">
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-cd "d:\React\Day4\reactnavigation"
-npm run dev
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROFILE MODAL -->
+  <!-- DEVELOPER PROFILE MODAL -->
   <div class="modal-overlay" id="profileModal">
-    <div class="modal-container" style="max-width: 520px;">
+    <div class="modal-container" style="max-width: 540px;">
       <div class="modal-header">
-        <div class="modal-title"><i class="fa-solid fa-user-gear" style="color: var(--react-cyan);"></i> Developer Profile</div>
+        <div class="modal-title"><i class="fa-solid fa-user-gear" style="color: var(--react-cyan);"></i> Developer Dossier</div>
         <button class="modal-close" onclick="closeModal('profileModal')"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body" style="text-align: center;">
-        <div style="width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, var(--react-cyan), var(--indigo-accent)); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #fff;">
+        <div style="width: 96px; height: 96px; border-radius: 50%; background: linear-gradient(135deg, var(--react-cyan), var(--indigo-accent)); margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; color: #fff; box-shadow: 0 4px 20px var(--react-cyan-glow);">
           <i class="fa-solid fa-user-astronaut"></i>
         </div>
-        <h3 style="color: var(--text-primary); margin-bottom: 4px;">Thanuja Ramesh</h3>
-        <p style="color: var(--react-cyan); font-weight: 600; margin-bottom: 16px;">Java Developer & Modern Web Specialist</p>
+        <h3 style="color: var(--text-primary); margin-bottom: 4px; font-size: 1.4rem;">Thanuja Ramesh</h3>
+        <p style="color: var(--react-cyan); font-weight: 700; margin-bottom: 16px;">Java Developer & Frontend Specialist</p>
         
-        <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem;">
-          Actively building and documenting React 19 applications, modular UI components, Tailwind CSS styling, and single-page navigation architecture.
+        <p style="color: var(--text-secondary); margin-bottom: 22px; font-size: 0.95rem; line-height: 1.7;">
+          Passionate software engineer actively mastering modern full-stack web applications with React 19, modular component architecture, Tailwind CSS v4, dynamic state handling, and React Router DOM.
         </p>
 
-        <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+        <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
           <span class="topic-chip"><i class="fa-brands fa-java" style="color: #f89820;"></i> Java</span>
           <span class="topic-chip"><i class="fa-brands fa-react" style="color: var(--react-cyan);"></i> React 19</span>
-          <span class="topic-chip"><i class="fa-brands fa-js" style="color: #f7df1e;"></i> JavaScript</span>
+          <span class="topic-chip"><i class="fa-brands fa-js" style="color: #f7df1e;"></i> JavaScript ES6+</span>
           <span class="topic-chip"><i class="fa-brands fa-css3-alt" style="color: #38bdf8;"></i> Tailwind CSS</span>
           <span class="topic-chip"><i class="fa-solid fa-bolt" style="color: #fbbf24;"></i> Vite</span>
+          <span class="topic-chip"><i class="fa-solid fa-route" style="color: #a855f7;"></i> React Router</span>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Toast Element -->
+  <div id="toast" class="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMsg">Action completed successfully!</span>
   </div>
 
   <!-- Footer -->
@@ -1535,22 +2382,24 @@ npm run dev
           <circle cx="57.65" cy="50" r="12" fill="#00d8ff"/>
         </svg>
       </div>
-      <p>© 2026 React Learning Journey • Built with passion by <strong>Thanuja Ramesh</strong></p>
+      <p>© 2026 React Learning Journey • Built with precision & passion by <strong>Thanuja Ramesh</strong></p>
       <ul class="footer-links">
-        <li><a href="#daysSection">Tasks</a></li>
-        <li><a href="#" onclick="openModal('runModal')">Terminal Commands</a></li>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#daysSection">Tasks (Days 1–5)</a></li>
+        <li><a href="#" onclick="openModal('runModal')">Terminal Guide</a></li>
         <li><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to Top</a></li>
       </ul>
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- ==========================================================================
+       SCRIPTS & INTERACTIVE FUNCTIONALITY
+       ========================================================================== -->
   <script>
-    // Theme Toggle
+    // Theme Switcher Logic
     const themeToggleBtn = document.getElementById('themeToggle');
     const htmlEl = document.documentElement;
 
-    // Check saved theme preference
     const savedTheme = localStorage.getItem('react_portfolio_theme') || 'dark';
     htmlEl.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
@@ -1561,6 +2410,7 @@ npm run dev
       htmlEl.setAttribute('data-theme', newTheme);
       localStorage.setItem('react_portfolio_theme', newTheme);
       updateThemeIcon(newTheme);
+      showToast(newTheme === 'dark' ? 'Dark Mode Activated' : 'Light Mode Activated');
     });
 
     function updateThemeIcon(theme) {
@@ -1569,7 +2419,7 @@ npm run dev
         : '<i class="fa-solid fa-moon" style="color: #6366f1;"></i>';
     }
 
-    // Modal Handlers
+    // Modal Control System
     function openModal(modalId) {
       const modal = document.getElementById(modalId);
       if (modal) {
@@ -1586,7 +2436,7 @@ npm run dev
       }
     }
 
-    // Close modal on click outside
+    // Close on outside click
     document.querySelectorAll('.modal-overlay').forEach(overlay => {
       overlay.addEventListener('click', (e) => {
         if (e.target === overlay) {
@@ -1596,7 +2446,7 @@ npm run dev
       });
     });
 
-    // Close on Escape
+    // Close on Escape Key & Focus Search on '/'
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal-overlay.active').forEach(modal => {
@@ -1604,19 +2454,48 @@ npm run dev
         });
         document.body.style.overflow = '';
       }
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+      }
     });
+
+    // Tab Switcher Helper for Code Modals
+    function switchTab(btn, paneId) {
+      const modalBody = btn.closest('.modal-body');
+      modalBody.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      modalBody.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+
+      btn.classList.add('active');
+      const targetPane = document.getElementById(paneId);
+      if (targetPane) {
+        targetPane.classList.add('active');
+      }
+    }
+
+    // Toast Feedback
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2400);
+    }
 
     // Copy Code Helper
     function copyCode(btn) {
       const codeBlock = btn.parentElement;
       const text = codeBlock.innerText.replace('Copy', '').trim();
       navigator.clipboard.writeText(text).then(() => {
-        const originalText = btn.innerText;
-        btn.innerText = 'Copied!';
+        showToast('Code copied to clipboard!');
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
         btn.style.background = '#10b981';
         btn.style.color = '#fff';
         setTimeout(() => {
-          btn.innerText = originalText;
+          btn.innerHTML = originalHtml;
           btn.style.background = '';
           btn.style.color = '';
         }, 2000);
@@ -1635,7 +2514,7 @@ npm run dev
 
       cards.forEach(card => {
         const category = card.getAttribute('data-category');
-        const keywords = card.getAttribute('data-keywords').toLowerCase();
+        const keywords = card.getAttribute('data-keywords') ? card.getAttribute('data-keywords').toLowerCase() : '';
         const title = card.querySelector('.card-title').innerText.toLowerCase();
         const desc = card.querySelector('.card-desc').innerText.toLowerCase();
 
@@ -1663,6 +2542,90 @@ npm run dev
         filterCards();
       });
     });
+
+    // Day 4 Multi-Page Simulator Navigation
+    const d4Pages = {
+      home: {
+        title: 'Home Page',
+        desc: 'Welcome to our website. A home page is the main introductory web page that serves as a central starting point and links visitors to other sections.'
+      },
+      about: {
+        title: 'About Page',
+        desc: 'Learn more about our team, background, goals, and the innovative products we develop.'
+      },
+      services: {
+        title: 'Services Page',
+        desc: 'Explore our full spectrum of professional web design, React architecture, and cloud engineering solutions.'
+      },
+      courses: {
+        title: 'Courses Page',
+        desc: 'Browse our comprehensive curriculum in Java, Spring Boot, React 19, JavaScript ES6+, and Tailwind CSS.'
+      },
+      gallery: {
+        title: 'Gallery Page',
+        desc: 'Visual showcase of UI components, project screenshots, design wireframes, and creative media.'
+      },
+      contact: {
+        title: 'Contact Page',
+        desc: 'Reach out to our engineering team for collaborations, inquiries, feedback, and questions.'
+      },
+      help: {
+        title: 'Help & Documentation Page',
+        desc: 'Find FAQs, troubleshooting guides, documentation resources, and developer support.'
+      },
+      notfound: {
+        title: '404 - Page Not Found',
+        desc: 'The requested route does not exist. Handled smoothly with React Router wildcard (*) routing!'
+      }
+    };
+
+    function navigateDay4Sim(pageKey, btn) {
+      const container = document.getElementById('d4SimContent');
+      const page = d4Pages[pageKey];
+      if (page && container) {
+        container.innerHTML = `
+          <h2 style="font-size: 1.4rem; margin-bottom: 8px;">${page.title}</h2>
+          <p>${page.desc}</p>
+        `;
+      }
+      btn.closest('.sim-nav-links').querySelectorAll('.sim-nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // Day 5 Dynamic State Simulation
+    let d5IsActive = true;
+
+    function setDay5Route(view) {
+      const homeView = document.getElementById('d5HomeView');
+      const aboutView = document.getElementById('d5AboutView');
+      const btnHome = document.getElementById('d5BtnHome');
+      const btnAbout = document.getElementById('d5BtnAbout');
+
+      if (view === 'home') {
+        homeView.style.display = 'block';
+        aboutView.style.display = 'none';
+        btnHome.classList.add('active');
+        btnAbout.classList.remove('active');
+      } else {
+        homeView.style.display = 'none';
+        aboutView.style.display = 'block';
+        btnAbout.classList.add('active');
+        btnHome.classList.remove('active');
+      }
+    }
+
+    function toggleDay5Status() {
+      d5IsActive = !d5IsActive;
+      const badge = document.getElementById('d5StatusBadge');
+      if (d5IsActive) {
+        badge.innerText = 'Active';
+        badge.style.background = '#15803d';
+      } else {
+        badge.innerText = 'Not Active';
+        badge.style.background = '#dc2626';
+      }
+      showToast('State updated: ' + (d5IsActive ? 'Active' : 'Not Active'));
+    }
   </script>
 </body>
 </html>

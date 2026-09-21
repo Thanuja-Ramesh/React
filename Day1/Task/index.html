@@ -1,65 +1,610 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>React Fundamentals & Architecture Notes | Day 01</title>
+  <meta name="description" content="Detailed theory and technical guide on React 19 architecture, component modularity, JSX, Virtual DOM, and reconciliation." />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 115.3 100'><path d='M57.65 0C25.8 0 0 22.4 0 50s25.8 50 57.65 50 57.65-22.4 57.65-50S89.5 0 57.65 0zm0 88C32.4 88 12 71 12 50S32.4 12 57.65 12 103.3 29 103.3 50 82.9 88 57.65 88z' fill='%2300d8ff'/><circle cx='57.65' cy='50' r='13' fill='%2300d8ff'/></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg-primary: #090d16;
+      --bg-secondary: #0f172a;
+      --bg-card: rgba(15, 23, 42, 0.75);
+      --bg-input: #1e293b;
+      --bg-code: #060a12;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(0, 216, 255, 0.4);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --react-cyan: #00d8ff;
+      --react-cyan-glow: rgba(0, 216, 255, 0.25);
+      --indigo-accent: #6366f1;
+      --emerald-accent: #10b981;
+      --amber-accent: #f59e0b;
+      --card-radius: 14px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-input: #f1f5f9;
+      --bg-code: #0f172a;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(0, 142, 179, 0.45);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --react-cyan: #008eb3;
+      --react-cyan-glow: rgba(0, 142, 179, 0.2);
+      --indigo-accent: #4f46e5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.7;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      background-image: radial-gradient(at 10% 10%, rgba(0, 216, 255, 0.06) 0px, transparent 45%);
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(9, 13, 22, 0.85);
+      border-bottom: 1px solid var(--border-color);
+    }
+    [data-theme="light"] header {
+      background: rgba(248, 250, 252, 0.88);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+
+    .brand-group span {
+      background: linear-gradient(135deg, #00d8ff, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-action {
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .btn-action:hover {
+      border-color: var(--border-hover);
+      color: var(--react-cyan);
+    }
+
+    /* Layout */
+    .docs-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      padding: 40px 0 80px;
+    }
+
+    /* Sidebar TOC */
+    .toc-sidebar {
+      position: sticky;
+      top: 100px;
+      height: calc(100vh - 120px);
+      overflow-y: auto;
+      padding-right: 12px;
+    }
+
+    .toc-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .toc-list a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.88rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      display: block;
+      transition: var(--transition);
+      border-left: 2px solid transparent;
+    }
+
+    .toc-list a:hover, .toc-list a.active {
+      color: var(--react-cyan);
+      background: rgba(0, 216, 255, 0.08);
+      border-left-color: var(--react-cyan);
+    }
+
+    /* Main Content */
+    .doc-article {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 36px;
+      backdrop-filter: blur(10px);
+    }
+
+    .doc-header {
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 24px;
+    }
+
+    .badge-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(0, 216, 255, 0.12);
+      color: var(--react-cyan);
+      border: 1px solid rgba(0, 216, 255, 0.3);
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .doc-lead {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+    }
+
+    /* Content Sections */
+    .content-section {
+      margin-bottom: 40px;
+      scroll-margin-top: 90px;
+    }
+
+    .content-section h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .content-section h2 i {
+      color: var(--react-cyan);
+      font-size: 1.1rem;
+    }
+
+    .content-section p {
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+      font-size: 0.96rem;
+    }
+
+    .content-section ul {
+      margin-left: 24px;
+      margin-bottom: 18px;
+      color: var(--text-secondary);
+    }
+
+    .content-section li {
+      margin-bottom: 8px;
+    }
+
+    /* Callout Box */
+    .callout-box {
+      background: var(--bg-input);
+      border-left: 4px solid var(--react-cyan);
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      margin: 18px 0;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+    }
+
+    /* Code Snippets */
+    .code-block {
+      background: var(--bg-code);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      margin: 16px 0;
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #94a3b8;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .copy-btn:hover {
+      background: var(--react-cyan);
+      color: #04101e;
+    }
+
+    /* Comparison Table */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.9rem;
+    }
+
+    .comparison-table th, .comparison-table td {
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+
+    .comparison-table th {
+      background: var(--bg-input);
+      color: var(--react-cyan);
+      font-weight: 700;
+    }
+
+    .comparison-table tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10b981;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 860px) {
+      .docs-layout {
+        grid-template-columns: 1fr;
+      }
+      .toc-sidebar {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h4>What is React?</h4>
-    <p>React is an open-source JavaScript library used to build interactive and reusable user interfaces, especially for web applications. React was created at Facebook and was open-sourced in 2013. Today it is maintained by Meta and the open-source community. React mainly focuses on the UI layer of an application.</p>  
-<p>In traditional JavaScript applications, developers manually select DOM elements and update them whenever data changes. React provides a declarative and component-based approach. We describe what the UI should look like for the current data/state, and React handles the necessary rendering and DOM updates.</p>
-<h4>Is React a library or framework?</h4>
-<p>React is a library, not a framework. Specifically, it is an unopinionated JavaScript library focused exclusively on the "view layer" of an application—meaning its primary job is building user interfaces, handling rendering, and managing UI updates. </p> 
-<h4>What is a component?</h4>
-<p>A component is a reusable piece of UI. In modern React, components are commonly JavaScript functions that return JSX.</p>
-<p>For example, instead of writing navbar code repeatedly, we can create one "Navbar" component and use it wherever required. Components make applications easier to divide into manageable pieces.</p>
-<h4>Why are components important?</h4>
-<p>Suppose we create an e-commerce website.</p>
-<p>Without component separation:</p>
-<ul>
-    <li>One Huge File</li>
-    <li>Navbar</li>
-    <li>Banner</li>
-    <li>Products</li>
-    <li>Carts</li>
-    <li>Footer</li>
-    <li>Everything Together</li>
-</ul>
-<p>With React:</p>
-<p>Benefits include:</p>
-<ul>
-    <li>Reusability</li>
-    <li>Maintainability</li>
-    <li>Readability</li>
-    <li>Separation of concerns</li>
-    <li>Easier testing</li>
-    <li>Better application structure</li>
-</ul>
-<h4>What is JSX?</h4>
-<p>JSX stands for JavaScript XML. It is a syntax extension commonly used with React that allows developers to describe UI using HTML-like markup inside JavaScript.</p>
-<p>Example</p>
-<p>const App = () => {</p>
 
-<p>return (</p>
+  <header>
+    <div class="container nav-container">
+      <a href="../../index.html" class="brand-group">
+        <svg viewBox="0 0 115.3 100" width="30" height="30">
+          <path d="M57.65 0C25.8 0 0 22.4 0 50s25.8 50 57.65 50 57.65-22.4 57.65-50S89.5 0 57.65 0zm0 88C32.4 88 12 71 12 50S32.4 12 57.65 12 103.3 29 103.3 50 82.9 88 57.65 88z" fill="#00d8ff"/>
+          <circle cx="57.65" cy="50" r="12" fill="#00d8ff"/>
+        </svg>
+        <span>React 19 Mastery • Day 01</span>
+      </a>
 
-<h4>Hello React</h4>
+      <div class="nav-controls">
+        <button class="btn-action" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
+        <a href="../../index.html" class="btn-action"><i class="fa-solid fa-arrow-left"></i> Back to Task Hub</a>
+      </div>
+    </div>
+  </header>
 
-<p>);</p>
+  <main class="container docs-layout">
+    
+    <!-- Sticky Table of Contents -->
+    <aside class="toc-sidebar">
+      <div class="toc-title">Table of Contents</div>
+      <ul class="toc-list">
+        <li><a href="#what-is-react" class="active">1. What is React?</a></li>
+        <li><a href="#library-vs-framework">2. Library vs. Framework</a></li>
+        <li><a href="#components">3. What is a Component?</a></li>
+        <li><a href="#component-importance">4. Why Components Matter</a></li>
+        <li><a href="#jsx">5. What is JSX?</a></li>
+        <li><a href="#virtual-dom">6. Virtual DOM vs Real DOM</a></li>
+        <li><a href="#reconciliation">7. Reconciliation & Diffing</a></li>
+      </ul>
+    </aside>
 
-<p>};</p>
-<p>This:
+    <!-- Main Documentation -->
+    <article class="doc-article">
+      <div class="doc-header">
+        <span class="badge-tag">DAY 01 • THEORY & CORE CONCEPTS</span>
+        <h1 class="doc-title">React Fundamentals & Architecture</h1>
+        <p class="doc-lead">A comprehensive engineering guide covering core paradigms, declarative UI, component modularity, JSX compilation, Virtual DOM, and the reconciliation cycle.</p>
+      </div>
 
-<h4>Hello React</h4>is JSX.</p>
-<p>Browsers do not directly execute JSX syntax as plain JavaScript. Build tools such as Vite use transformation tooling so JSX is converted into JavaScript that can be executed by the browser.</p>
-<h4>What is Virtual DOM?</h4>
-<p>Virtual DOM is a common term for React's in-memory representation of the UI. React uses its internal tree structures to determine what the UI should look like based on the latest component output.</p>
-<p>When state changes, React renders the affected component logic again, creates the next representation, determines the necessary changes, and then commits the required updates to the browser DOM.</p>
-<h4>What is the Real DOM?</h4>
-<p>DOM stands for Document Object Model. The browser represents an HTML document as a tree of nodes/elements that JavaScript and browser</p>
-<h4>What ix reconciliation?</h4>
-<p>Reconciliation is the process React uses to determine how a newly rendered element/component tree relates to the previous one and what updates are necessary.</p>
-<p>When props or state change, React renders again. During reconciliation, React compares the new element tree with the previous tree, preserves or replaces component instances where appropriate, and determines what work needs to be committed to the DOM.</p>
+      <!-- Section 1 -->
+      <section class="content-section" id="what-is-react">
+        <h2><i class="fa-solid fa-atom"></i> 1. What is React?</h2>
+        <p>
+          React is an open-source JavaScript library developed by Facebook (Meta) and open-sourced in 2013. It is engineered specifically for building modular, interactive, and performant user interfaces, especially for Single Page Applications (SPAs).
+        </p>
+        <div class="callout-box">
+          <strong>Key Paradigm Shift:</strong> Traditional vanilla JavaScript uses an <em>imperative</em> approach where developers manually target DOM nodes (e.g. <code>document.getElementById</code>) and modify them. React introduces a <em>declarative</em> approach where you describe the target UI based on the current state, and React handles all underlying DOM mutations efficiently.
+        </div>
+      </section>
 
+      <!-- Section 2 -->
+      <section class="content-section" id="library-vs-framework">
+        <h2><i class="fa-solid fa-scale-balanced"></i> 2. Is React a Library or a Framework?</h2>
+        <p>
+          React is strictly a <strong>library</strong>, not a framework. It is unopinionated and focuses exclusively on the <em>view layer</em> (V in MVC).
+        </p>
+        
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>React (Library)</th>
+              <th>Framework (e.g., Angular)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Scope</strong></td>
+              <td>View Layer Only</td>
+              <td>Full End-to-End Suite</td>
+            </tr>
+            <tr>
+              <td><strong>Routing & State</strong></td>
+              <td>Ecosystem choices (React Router, Redux, Zustand)</td>
+              <td>Built-in strictly</td>
+            </tr>
+            <tr>
+              <td><strong>Control Inversion</strong></td>
+              <td>Developer calls the library</td>
+              <td>Framework controls application flow</td>
+            </tr>
+            <tr>
+              <td><strong>Flexibility</strong></td>
+              <td>Extremely high modularity</td>
+              <td>Opinionated architecture</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Section 3 -->
+      <section class="content-section" id="components">
+        <h2><i class="fa-solid fa-cube"></i> 3. What is a Component?</h2>
+        <p>
+          A component is a self-contained, reusable piece of user interface. In modern React, components are pure or semi-pure JavaScript functions that accept inputs (called <strong>props</strong>) and return JSX describing what should appear on the screen.
+        </p>
+        <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+// Example of a Reusable Functional Component
+function WelcomeBanner({ name }) {
+  return (
+    &lt;div className="banner"&gt;
+      &lt;h1&gt;Welcome back, {name}!&lt;/h1&gt;
+      &lt;p&gt;Explore your dashboard below.&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default WelcomeBanner;
+        </div>
+      </section>
+
+      <!-- Section 4 -->
+      <section class="content-section" id="component-importance">
+        <h2><i class="fa-solid fa-sitemap"></i> 4. Why are Components Important?</h2>
+        <p>
+          Consider constructing a real-world e-commerce platform.
+        </p>
+        <p><strong>Without component architecture:</strong> You end up with a single massive file containing thousands of lines combining Header, Banner, Products list, Cart sidebar, Checkout modal, and Footer. Fixing one minor bug risks breaking unrelated elements.</p>
+        
+        <p><strong>With React component architecture:</strong> Each feature is isolated into its own file:</p>
+        <ul>
+          <li><strong>Reusability:</strong> Create a <code>&lt;ProductCard /&gt;</code> or <code>&lt;Button /&gt;</code> once, render it hundreds of times across different routes.</li>
+          <li><strong>Maintainability & Readability:</strong> Small, isolated components make codebases intuitive to navigate.</li>
+          <li><strong>Separation of Concerns:</strong> Each component manages its own styling, DOM representation, and state.</li>
+          <li><strong>Testability:</strong> Independent units can be easily tested with unit and integration tests.</li>
+        </ul>
+      </section>
+
+      <!-- Section 5 -->
+      <section class="content-section" id="jsx">
+        <h2><i class="fa-solid fa-code"></i> 5. What is JSX (JavaScript XML)?</h2>
+        <p>
+          JSX is a syntax extension for JavaScript that looks similar to HTML. It enables developers to author visual component structure directly alongside application logic.
+        </p>
+        <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+const App = () => {
+  return (
+    &lt;div className="app-container"&gt;
+      &lt;h2&gt;Hello React 19&lt;/h2&gt;
+      &lt;p&gt;Declarative UI powered by Vite.&lt;/p&gt;
+    &lt;/div&gt;
+  );
+};
+        </div>
+        <p>
+          Browsers cannot natively execute JSX. Modern build tools (such as Vite with esbuild/rolldown or Babel) compile JSX into standard JavaScript (<code>React.createElement</code> or the modern JSX runtime).
+        </p>
+      </section>
+
+      <!-- Section 6 -->
+      <section class="content-section" id="virtual-dom">
+        <h2><i class="fa-solid fa-network-wired"></i> 6. Real DOM vs. Virtual DOM</h2>
+        <p>
+          <strong>Real DOM:</strong> The tree representation of HTML elements created by the browser. Mutating the real DOM directly is computationally expensive because it causes layout reflows and repaints.
+        </p>
+        <p>
+          <strong>Virtual DOM (VDOM):</strong> A lightweight JavaScript object tree representation of the Real DOM kept in memory. When changes occur, React updates the Virtual DOM instantaneously in memory without triggering costly browser repaints.
+        </p>
+      </section>
+
+      <!-- Section 7 -->
+      <section class="content-section" id="reconciliation">
+        <h2><i class="fa-solid fa-rotate"></i> 7. What is Reconciliation & Diffing?</h2>
+        <p>
+          <strong>Reconciliation</strong> is the algorithm React uses to synchronize the Virtual DOM with the Real DOM.
+        </p>
+        <ul>
+          <li>When state or props change, React generates a new Virtual DOM tree.</li>
+          <li>React runs a fast <strong>diffing algorithm</strong> (O(n) heuristic) comparing the new tree with the previous snapshot.</li>
+          <li>It isolates only the exact subtrees or nodes that actually changed.</li>
+          <li>React batches and commits only those minimal modifications to the real browser DOM.</li>
+        </ul>
+      </section>
+
+    </article>
+  </main>
+
+  <div id="toast" class="toast">Copied to clipboard!</div>
+
+  <script>
+    // Theme Toggle
+    const themeBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+
+    const savedTheme = localStorage.getItem('react_portfolio_theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    updateIcon(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', next);
+      localStorage.setItem('react_portfolio_theme', next);
+      updateIcon(next);
+    });
+
+    function updateIcon(theme) {
+      themeBtn.innerHTML = theme === 'dark' 
+        ? '<i class="fa-solid fa-sun" style="color: #fbbf24;"></i>' 
+        : '<i class="fa-solid fa-moon" style="color: #6366f1;"></i>';
+    }
+
+    // Copy Code
+    function copyCode(btn) {
+      const code = btn.parentElement.innerText.replace('Copy', '').trim();
+      navigator.clipboard.writeText(code).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+    }
+
+    // Active TOC link on scroll
+    const sections = document.querySelectorAll('.content-section');
+    const navLinks = document.querySelectorAll('.toc-list a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 120;
+        if (pageYOffset >= top) {
+          current = sec.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
